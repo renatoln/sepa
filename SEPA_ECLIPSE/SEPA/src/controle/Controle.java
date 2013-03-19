@@ -10,14 +10,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Vector;
-import modelo.Valida;
-import modelo.Hospital;
-import modelo.Profissao;
-import modelo.Profissional;
-import modelo.UtilidadesData;
-import negocio.HospitalDao;
-import negocio.ProfissaoDao;
-import negocio.ProfissionalDao;
+import modelo.negocio.util.Valida;
+import modelo.negocio.Hospital;
+import modelo.negocio.Profissao;
+import modelo.negocio.Profissional;
+import modelo.negocio.util.UtilidadesData;
+import modelo.bd.HospitalDao;
+import modelo.bd.ProfissaoDao;
+import modelo.bd.ProfissionalDao;
 
 /**
  *

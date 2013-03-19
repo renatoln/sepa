@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package negocio;
+package modelo.bd;
 
 import java.sql.ResultSet;
 import java.util.Vector;
-import modelo.Hospital;
+import modelo.negocio.Hospital;
 
 /**
  *

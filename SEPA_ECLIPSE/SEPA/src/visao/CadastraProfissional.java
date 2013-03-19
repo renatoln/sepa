@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import modelo.Hospital;
-import modelo.Profissao;
-import modelo.Profissional;
+import modelo.negocio.Hospital;
+import modelo.negocio.Profissao;
+import modelo.negocio.Profissional;
 
 /**
  *

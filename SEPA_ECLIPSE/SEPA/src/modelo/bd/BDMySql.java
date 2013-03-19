@@ -1,4 +1,4 @@
-package negocio;
+package modelo.bd;
 
 
 import java.sql.Connection;
