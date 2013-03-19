@@ -324,7 +324,28 @@ public class UtilidadesData {
         gcData.add(Calendar.YEAR, anos);
         return gcData.getTime();
     }
+    private static String getDiaStr(GregorianCalendar data){
+        int dia = getDia(data);
+        String sDia = "";
+        if (dia <= 9){
+            sDia = "0"+dia;
+        }else{
+            sDia = ""+dia;
+        }
+        return sDia;
+    }
 
+
+    private static String getMesStr(GregorianCalendar data){
+        int mes = getMes(data);
+        String sMes = "";
+        if (mes <= 9){
+            sMes = "0"+mes;
+        }else{
+            sMes = String.valueOf(mes);
+        }
+        return sMes;
+    }
     public static GregorianCalendar transformaData_YYYYMMDD_to_GregorianCalendar(String data) {
         String[] values = data.split("/");
         int iAno = Integer.parseInt(values[0]);
@@ -347,12 +368,16 @@ public class UtilidadesData {
         return strData;
     }
     
-    public boolean comparaData(String data){
-        if(transformaData_YYYYMMDD_Insere_no_banco(data).after(gcData)){
-            return false;
-           
+    public static String transformaData_GregorianCalendar_to_DDMMYYYY(GregorianCalendar data) {
+        String strData = getDiaStr(data)+"/"+getMesStr(data)+"/"+getAno(data);
+        return strData;
     }
-    return true;
+    public boolean comparaData(String data) {
+        if (transformaData_YYYYMMDD_Insere_no_banco(data).after(gcData)) {
+            return false;
+
+        }
+        return true;
     
     }
 }

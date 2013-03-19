@@ -81,7 +81,7 @@ public class Controle {
      }*/
     public boolean validaCpf(String formato) {
         
-        return valida.calculaCPF(formato);
+        return valida.validarCPF(formato);
         
         
     }

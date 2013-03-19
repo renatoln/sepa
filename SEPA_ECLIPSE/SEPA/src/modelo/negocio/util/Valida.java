@@ -26,15 +26,14 @@ public class Valida {
         this.data = data;
     }
 
-    
-        public boolean calculaCPF(String cpfNum) {
+    public boolean validarCPF(String cpfNum) {
         int[] cpf = new int[cpfNum.length()]; //define o valor com o tamanho da string
         int resultP = 0;
         int resultS = 0;
-        if(cpfNum.length()!=11){
+        if (cpfNum.length() != 11) {
             return false;
         }
-        
+
         //converte a string para um array de integer
         for (int i = 0; i < cpf.length; i++) {
             cpf[i] = Integer.parseInt(cpfNum.substring(i, i + 1));
@@ -53,7 +52,7 @@ public class Valida {
             //calcula o segundo nÃºmero(DIV) do cpf
             for (int i = 0; i < 10; i++) {
                 resultS += cpf[i] * (i);
-          //  return false;
+                //  return false;
             }
             int divS = resultS % 11;
 
@@ -66,13 +65,10 @@ public class Valida {
         //se tudo estiver ok retorna verdadeiro
         return true;
     }//
-    
-    
-    
-    
+
     public boolean isDateValid(String data, String formato) {
 
-         try {
+        try {
             if (data.length() < 8 || data.length() > 10) {
                 return false;
             }
@@ -125,9 +121,9 @@ public class Valida {
             data = null;
             return false;
         } /*catch (IllegalArgumentException e) {
-         data = null;
-         return false;
-         }*/
+        data = null;
+        return false;
+        }*/
         return true;
 
 
@@ -147,9 +143,8 @@ public class Valida {
 
 
     }
-    
-    
-        public String visualizaDMA(String data) throws ParseException {
+
+    public String visualizaDMA(String data) throws ParseException {
 
 
         String ano = "", mes = "", dia = "";
@@ -162,10 +157,9 @@ public class Valida {
 
 
     }
-       public Date getDataAtual() {
+
+    public Date getDataAtual() {
         GregorianCalendar gcAtual = new GregorianCalendar();
         return gcAtual.getTime();
     }
-       
- 
 }
