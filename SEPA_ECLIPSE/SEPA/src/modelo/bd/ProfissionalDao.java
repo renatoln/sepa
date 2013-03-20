@@ -93,6 +93,23 @@ public class ProfissionalDao {
         return p;
     }
 
+    public  Vector<Profissional> getProfissionais(){
+		ResultSet rs = bdMySql.executarBuscaSQL("Select idProfissional, usuario, senha,nomeProfissional,data_nascimento,cpf,enderecoProfissional,telefoneProfissional,numero_conselho,email,tipo_profissional, Profissao_idProfissao,Hospital_idHospital from profissional"
+                + " inner join profissao on profissao.idProfissao = Profissao_idProfissao inner join hospital on hospital.idHospital = profissional.Hospital_idHospital");
+		Profissional p = null;
+                Vector<Profissional> profissionais = new Vector<Profissional>();
+		try{
+			while (rs.next()){
+				char sexo = rs.getString(2).toCharArray()[0];
+				p = new Profissional(rs.getInt("idProfissional"),rs.getString("usuario"),rs.getString("senha"), rs.getString("nomeProfissional"),rs.getString("data_nascimento"), rs.getString("cpf"),rs.getString("enderecoProfissional"),rs.getString("telefoneProfissional"),rs.getString("numero_conselho"),rs.getString("email"),rs.getInt("tipo_profissional"),hospitalDao.getHospitalId(rs.getInt("Profissao_idProfissao")),profissaoDao.getProfissaoId(rs.getInt("Hospital_idHospital")));
+                                profissionais.add(p);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return profissionais;
+	}
+
 
     
     public void atualizaProfissional(Profissional p) {

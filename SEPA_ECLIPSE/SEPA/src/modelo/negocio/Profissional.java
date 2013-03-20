@@ -154,7 +154,7 @@ public class Profissional {
 
     @Override
     public String toString() {
-        return "Profissional{" + "id_profissional=" + id_profissional + ", nome=" + nome + ", usuario=" + usuario + ", senha=" + senha + ", dtNascimento=" + dtNascimento + ", cpf=" + cpf + ", endereco=" + endereco + ", email=" + email + ", noConcelho=" + noConcelho + ", tipo=" + tipo + ", hospital=" + hospital + ", profissao=" + profissao + ", telefone=" + telefone + '}';
+        return   this.nome;
     }
 
     public Profissao getProfissao() {

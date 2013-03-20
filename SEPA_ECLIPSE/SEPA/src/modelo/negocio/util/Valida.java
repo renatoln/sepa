@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,14 +27,15 @@ public class Valida {
         this.data = data;
     }
 
-    public boolean validarCPF(String cpfNum) {
+    
+        public boolean calculaCPF(String cpfNum) {
         int[] cpf = new int[cpfNum.length()]; //define o valor com o tamanho da string
         int resultP = 0;
         int resultS = 0;
-        if (cpfNum.length() != 11) {
+        if(cpfNum.length()!=11){
             return false;
         }
-
+        
         //converte a string para um array de integer
         for (int i = 0; i < cpf.length; i++) {
             cpf[i] = Integer.parseInt(cpfNum.substring(i, i + 1));
@@ -52,7 +54,7 @@ public class Valida {
             //calcula o segundo nÃºmero(DIV) do cpf
             for (int i = 0; i < 10; i++) {
                 resultS += cpf[i] * (i);
-                //  return false;
+          //  return false;
             }
             int divS = resultS % 11;
 
@@ -65,10 +67,13 @@ public class Valida {
         //se tudo estiver ok retorna verdadeiro
         return true;
     }//
-
+    
+    
+    
+    
     public boolean isDateValid(String data, String formato) {
 
-        try {
+         try {
             if (data.length() < 8 || data.length() > 10) {
                 return false;
             }
@@ -121,9 +126,9 @@ public class Valida {
             data = null;
             return false;
         } /*catch (IllegalArgumentException e) {
-        data = null;
-        return false;
-        }*/
+         data = null;
+         return false;
+         }*/
         return true;
 
 
@@ -143,8 +148,9 @@ public class Valida {
 
 
     }
-
-    public String visualizaDMA(String data) throws ParseException {
+    
+    
+        public String visualizaDMA(String data) throws ParseException {
 
 
         String ano = "", mes = "", dia = "";
@@ -157,9 +163,88 @@ public class Valida {
 
 
     }
-
-    public Date getDataAtual() {
+       public Date getDataAtual() {
         GregorianCalendar gcAtual = new GregorianCalendar();
         return gcAtual.getTime();
     }
+        public static boolean valida_hora(String horario) {
+
+       try{
+       String hora = horario.toString();
+       if (horario.length()> 5){
+
+            return false;
+       }
+        if (hora.equals(":")) {
+            //JOptionPane.showMessageDialog(null, "Digite a hora" ,"Operador",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        String horas = null;
+        String minutos = null ;
+        int conta_horas = 0;
+        int conta_minutos = 0;
+        horas  = hora.substring(0,2);
+        minutos  = hora.substring(3,5);
+        conta_horas = Integer.parseInt(horas);
+        conta_minutos = Integer.parseInt(minutos);
+
+        if(conta_horas > 23) {
+           // JOptionPane.showMessageDialog(null, "Hora digitada inválida" ,"Operador",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(conta_minutos > 59) {
+           // JOptionPane.showMessageDialog(null, "Hora digitada inválida" ,"Operador",JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+    } catch(Exception e){
+	JOptionPane.showMessageDialog(null, "Hora digitada inválida" ,"Operador",JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+     return true;
+   }
+  public String getFormatarDataDaInterface(String dtParaFormata){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+
+		try {
+
+			Date dataFormatada;
+			dataFormatada = new Date(formatter.parse(dtParaFormata).getTime());
+			formatter .applyPattern("yyyy-mm-dd");
+	        dtParaFormata = formatter .format(dataFormatada);
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+        return dtParaFormata;
+      }
+
+
+
+
+   public String getFormatarDataDoBanco(String dtParaFormata){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
+
+		try {
+
+			Date dataFormatada;
+			dataFormatada = new Date(formatter.parse(dtParaFormata).getTime());
+			formatter .applyPattern("dd/mm/yyyy");
+	        dtParaFormata = formatter .format(dataFormatada);
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+        return dtParaFormata;
+      }
+       
+ 
 }

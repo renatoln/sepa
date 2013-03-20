@@ -4,114 +4,154 @@
  */
 package modelo.negocio;
 
-import java.util.GregorianCalendar;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 
 /**
  *
- * @author casa
+ * @author Lay and Lary
  */
 public class Paciente {
-
-    private int id;
+    private int Id;
     private String nome;
-    private char sexo;
     private String endereco;
     private String telefone;
     private String rg;
-    private GregorianCalendar dataNascimento;
+    private String dataNasc;
     private String cpf;
 
-    //o id é gerado pelo banco de dados
-    //construtor utilizado para retornar dados do banco
-    public Paciente(int id, String nome, char sexo, String endereco, String telefone, String rg,
-            GregorianCalendar dataNascimento,String cpf) {
-        this.id = id;
+    /**
+     * @return the nome
+     */
+    
+    public Paciente(int Id,String nome,String endereco,String telefone,String rg,String dataNasc,String cpf){
+        
+        this.Id = Id;
+        this.cpf = cpf;
+        this.dataNasc = dataNasc;
+        this.endereco = endereco;
         this.nome = nome;
-        this.sexo = sexo;
-        this.endereco = endereco;
-        this.telefone = telefone;
-        this.rg = rg;
-        this.dataNascimento = dataNascimento;
-        this.cpf = cpf;
+        this.rg =rg;
+        this.telefone =telefone;
+        
+    
     }
-
-    //construtor utilizado para inserção
-    public Paciente(String nome, char sexo, String endereco, String telefone, String rg,
-            GregorianCalendar dataNascimento,String cpf) {
+    
+     public Paciente(String nome,String endereco,String telefone,String rg,String dataNasc,String cpf){
+        
+        
+        this.cpf = cpf;
+        this.dataNasc = dataNasc;
+        this.endereco = endereco;
         this.nome = nome;
-        this.sexo = sexo;
-        this.endereco = endereco;
-        this.telefone = telefone;
-        this.rg = rg;
-        this.dataNascimento = dataNascimento;
-        this.cpf = cpf;
+        this.rg =rg;
+        this.telefone =telefone;
+        
+    
     }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public GregorianCalendar getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(GregorianCalendar dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+     
     public String getNome() {
         return nome;
     }
 
+    /**
+     * @param nome the nome to set
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public char getSexo() {
-        return sexo;
+    /**
+     * @return the endereco
+     */
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setSexo(char sexo) {
-        this.sexo = sexo;
+    /**
+     * @param endereco the endereco to set
+     */
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
+    /**
+     * @return the telefone
+     */
     public String getTelefone() {
         return telefone;
     }
 
+    /**
+     * @param telefone the telefone to set
+     */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    public String toString() {
-        return this.nome;
+    /**
+     * @return the rg
+     */
+    public String getRg() {
+        return rg;
     }
+
+    /**
+     * @param rg the rg to set
+     */
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    /**
+     * @return the dataNasc
+     */
+    public String getDataNasc() {
+        return dataNasc;
+    }
+
+    /**
+     * @param dataNasc the dataNasc to set
+     */
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
+    }
+
+    /**
+     * @return the cpf
+     */
+    public String getCpf() {
+        return cpf;
+    }
+
+    /**
+     * @param cpf the cpf to set
+     */
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    /**
+     * @return the Id
+     */
+    public int getId() {
+        return Id;
+    }
+
+    /**
+     * @param Id the Id to set
+     */
+    public void setId(int Id) {
+        this.Id = Id;
+    }
+
+    @Override
+    public String toString(){
+        return this.Id+" - "+this.nome;
+
+    }
+    
 }

@@ -36,8 +36,8 @@ public class BDMySql{
 			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-		      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital_ifba",
-		        "root", "ifba");
+		      con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sepa",
+		        "root", "root");
 		 /* O que quer dizer cada um dos par�mentros acima
 			*  banco ->     "jdbc:mysql://localhost:3306/root"  //banco de nome sgwf no ip local (localhost)
 			*  usuário -> "root"

@@ -71,6 +71,12 @@ public class Controle {
         
         
     }
+     public String dataBanco(String datas) throws ParseException {
+
+        return valida.getFormatarDataDaInterface(datas);
+
+
+    }
 
     /*
      public  GregorianCalendar dataBanco(String datas) throws ParseException {
@@ -81,7 +87,7 @@ public class Controle {
      }*/
     public boolean validaCpf(String formato) {
         
-        return valida.validarCPF(formato);
+        return valida.calculaCPF(formato);
         
         
     }
