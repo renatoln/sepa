@@ -138,7 +138,7 @@ public class FormArea extends javax.swing.JDialog {
                 areaDao.cadastraArea(a);
                 msn = "Area cadastrada com sucesso";
             } else {
-                a.setId(idArea);
+                a.setId(idArea); 
                 areaDao.atualizaArea(a);
                 msn = "Area atualizada com sucesso";
                 System.out.println(a);
