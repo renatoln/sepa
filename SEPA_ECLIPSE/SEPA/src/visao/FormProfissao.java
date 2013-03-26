@@ -115,6 +115,7 @@ public class FormProfissao extends javax.swing.JDialog {
                 pd.cadastraProfissao(p);
                 msn = "Profissao cadastrada com sucesso";
             } else {
+                p.setId_profissao(idProfissao);
                 pd.atualizaProfissao(p);
                 msn = "Profissao atualizada com sucesso";
                 System.out.println(p);

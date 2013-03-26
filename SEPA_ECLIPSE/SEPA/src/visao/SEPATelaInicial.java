@@ -157,7 +157,9 @@ public class SEPATelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        new TelaProfissao().setVisible(true);
+        TelaProfissao tp = new TelaProfissao();
+        tp.setVisible(true);
+        tp.atualizaTabela();
 }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -169,7 +171,9 @@ public class SEPATelaInicial extends javax.swing.JFrame {
 }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jmiCadastro_AreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastro_AreaActionPerformed
-        new TelaArea().setVisible(true);
+        TelaArea ta = new TelaArea();
+        ta.setVisible(true);
+        ta.atualizaTabela();
 }//GEN-LAST:event_jmiCadastro_AreaActionPerformed
 
     /**
