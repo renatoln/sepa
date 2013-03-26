@@ -20,12 +20,12 @@ public class ProntuarioDao {
     BDMySql bdMySql = BDMySql.getInstance();
 
     public String[][] listaProntuario() {
-        ResultSet rs = bdMySql.executarBuscaSQL("SELECT  Profissional_idProfissional, Paciente_idPaciente FROM prontuario where idProntuario ");
+        ResultSet rs = bdMySql.executarBuscaSQL("SELECT idProntuario, nomePaciente, nomeProfissional FROM prontuario inner join paciente on paciente.idPaciente = prontuario.Paciente_idPaciente inner join profissional on profissional.idProfissional = prontuario.Profissional_idProfissional");
         String lista[][] = new String[bdMySql.getRowCount(rs)][];
         try {
             int i = 0;
             while (rs.next()) {
-                String l[] = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)};
+                String l[] = {rs.getString(1), rs.getString(2), rs.getString(3)};
                 lista[i++] = l;
 
             }

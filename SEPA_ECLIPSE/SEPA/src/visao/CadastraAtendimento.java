@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import modelo.negocio.util.Utilidades;
 
 /**
  *
@@ -32,9 +33,11 @@ public class CadastraAtendimento extends javax.swing.JDialog {
     ProntuarioDao prontuarioDao = new ProntuarioDao();
     Valida data = new Valida();
     BDMySql bd = BDMySql.getInstance();
+    Utilidades ut = new Utilidades();
     private int idAtendimento = -1;
     Controle controle = new Controle();
     private String formato = "dd/MM/yyyy";
+     private String formatoh = "HH:mm:ss";
     PacienteDao pacienteDao = new PacienteDao();
 
     public CadastraAtendimento(java.awt.Frame parent, boolean modal) {
@@ -62,8 +65,6 @@ public class CadastraAtendimento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtHorario = new javax.swing.JTextField();
-        txtData = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
         btInserir = new javax.swing.JButton();
@@ -73,6 +74,8 @@ public class CadastraAtendimento extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jcProntuario = new javax.swing.JComboBox();
+        txtData = new javax.swing.JFormattedTextField();
+        txtHorario = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -99,6 +102,18 @@ public class CadastraAtendimento extends javax.swing.JDialog {
 
         jcProntuario.setModel(new DefaultComboBoxModel( prontuarioDao.getProntuarios()));
 
+        try {
+            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtHorario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,15 +132,15 @@ public class CadastraAtendimento extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(8, 8, 8)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btInserir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                                 .addComponent(jButton1))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                            .addComponent(txtHorario, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                            .addComponent(txtData, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                            .addComponent(txtData, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                            .addComponent(txtHorario, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))))
                 .addGap(61, 61, 61))
         );
         layout.setVerticalGroup(
@@ -133,12 +148,12 @@ public class CadastraAtendimento extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
@@ -163,13 +178,16 @@ public class CadastraAtendimento extends javax.swing.JDialog {
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
         // TODO add your handling code here:
         try {
-
+             ut.removerCaracterEspecial(txtData.getText());
+             ut.removerCaracterEspecial(txtHorario.getText());
+             
             if (controle.validaData(txtData.getText(), formato)) {//Validação de data
 
-                 if(data.valida_hora(txtHorario.getText())){ //Validação de hora 
+                 if(data.valida_hora(txtHorario.getText(),formatoh)){ //Validação de hora 
 
                 String data = controle.dataBanco(txtData.getText());
                 System.out.println(data);
+                if(verificarCampos()){
                 Atendimento at = new Atendimento(idAtendimento, data, txtHorario.getText(), txtDescricao.getText(),(Prontuario)jcProntuario.getSelectedItem());
 
                 String msn;
@@ -187,6 +205,7 @@ public class CadastraAtendimento extends javax.swing.JDialog {
                     msn = "Atendimento atualizada com sucesso";
                 }
                 fechaJanela(msn);
+                   }
                  } else {
                     System.out.println("Não validou");
                    JOptionPane.showMessageDialog(null, "Horário invalido", "Erro de validação", JOptionPane.ERROR_MESSAGE);
@@ -214,7 +233,7 @@ public class CadastraAtendimento extends javax.swing.JDialog {
         
         int tam = jcProntuario.getModel().getSize();
         for (int i = 0; i < tam; i++)
-                if (jcProntuario.getModel().getElementAt(i).equals(at.getProntuario().getIdProntuario())){
+                if (((Prontuario)jcProntuario.getModel().getElementAt(i)).getIdProntuario() == at.getProntuario().getIdProntuario()) {
                         jcProntuario.setSelectedIndex(i);
                         break;
                 }
@@ -223,6 +242,34 @@ public class CadastraAtendimento extends javax.swing.JDialog {
 
         btInserir.setText("Atualizar");
     }
+
+    private boolean verificarCampos() {
+
+        String sErro = "";
+        boolean erro = false;
+
+        if (txtData.getText().equals("")) {
+            sErro = "A data não pode ficar em branco!";
+            txtData.grabFocus();
+            erro = true;
+
+        } else if (txtHorario.getText().equals("")) {
+            sErro = "O Hoarario nao pode ficar em branco!";
+            txtHorario.grabFocus();
+            erro = true;
+        } else if (txtDescricao.getText().equals("")) {
+            sErro = "A descrição nao pode ficar em branco!";
+            txtDescricao.grabFocus();
+            erro = true;
+        } 
+        if (erro) {
+            JOptionPane.showMessageDialog(null, sErro, "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+
+    }
+
 
     private void fechaJanela(String msn) {
         this.setVisible(false);
@@ -277,8 +324,8 @@ public class CadastraAtendimento extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jcProntuario;
-    private javax.swing.JTextField txtData;
+    private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextArea txtDescricao;
-    private javax.swing.JTextField txtHorario;
+    private javax.swing.JFormattedTextField txtHorario;
     // End of variables declaration//GEN-END:variables
 }
