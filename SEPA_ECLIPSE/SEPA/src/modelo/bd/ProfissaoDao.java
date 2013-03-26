@@ -47,7 +47,7 @@ public class ProfissaoDao {
 
 
     public String[][] listaProfissoes() {
-        ResultSet rs = bdMySql.executarBuscaSQL("Select idProfissao,  nome from profissao");
+        ResultSet rs = bdMySql.executarBuscaSQL("Select idProfissao,  nome_profissao from profissao");
         String lista[][] = new String[bdMySql.getRowCount(rs)][];
         try {
             int i = 0;
@@ -61,7 +61,7 @@ public class ProfissaoDao {
     }
 
     public Profissao getProfissao(int id) {
-        ResultSet rs = bdMySql.executarBuscaSQL("Select nome from profissao where idProfissao = " + id);
+        ResultSet rs = bdMySql.executarBuscaSQL("Select nome_profissao from profissao where idProfissao = " + id);
         Profissao p = null;
         try {
             if (rs.next()) {
@@ -73,19 +73,19 @@ public class ProfissaoDao {
     }
 
     public void cadastraProfissao(Profissao p) {
-        String sql = "insert into profissao(nome) values ('" + p.getNome() + "')";
+        String sql = "insert into profissao(nome_profissao) values ('" + p.getNome() + "')";
         bdMySql.executarSQL(sql);
     }
 
     public void atualizaProfissao(Profissao p) {
-        String sql = "update profissao set nome = '" + p.getNome() + "'"
+        String sql = "update profissao set nome_profissao = '" + p.getNome() + "'"
                 + " where idProfissao = " + p.getId_profissao();
 
         bdMySql.executarSQL(sql);
     }
 
     public Vector<Profissao> getProfissoes() {
-        ResultSet rs = bdMySql.executarBuscaSQL("Select idProfissao,nome from profissoa ");
+        ResultSet rs = bdMySql.executarBuscaSQL("Select idProfissao,nome_profissao from profissoa ");
         Profissao p = null;
         Vector<Profissao> profissoes = new Vector<Profissao>();
         try {

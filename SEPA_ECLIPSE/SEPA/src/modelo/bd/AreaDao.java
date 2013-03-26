@@ -52,7 +52,7 @@ public class AreaDao {
         
 	public void atualizaArea(Area a){
 		String sql = "update area set nome = '"+a.getNome()+"',"+
-		                              " descricao = '"+a.getDescricao()+"''"+
+		                              " descricao = '"+a.getDescricao()+"'"+
 		                              " where idArea = "+ a.getId();
 		                              
 		bdMySql.executarSQL(sql);
