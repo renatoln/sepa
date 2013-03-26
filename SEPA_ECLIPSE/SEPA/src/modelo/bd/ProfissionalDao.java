@@ -149,25 +149,23 @@ p = new Profissional(id, rs.getString("nome"), rs.getString("usuario"), rs.getSt
 
         bdMySql.executarSQL(sql);
     }
-           public  Vector<Profissional> getProfissionais(){
-		ResultSet rs = bdMySql.executarBuscaSQL("Select idProfissional,nome,data_nascimento,cpf,endereco,telefone,numero_conselho,email,tipo_profissional, nome_profissao,nome_hospital from profissional"
-                + " inner join profissao on Profissao_idProfissao =idProfissao"
-                + " inner join hospital on Hospital_idHospital =idHospital");
+    public  Vector<Profissional> getProfissionais(){
+		ResultSet rs = bdMySql.executarBuscaSQL("Select idProfissional, usuario, senha,nome,data_nascimento,cpf,endereco,telefone,numero_conselho,email,tipo_profissional, Profissao_idProfissao,Hospital_idHospital from profissional"
+                + " inner join profissao on profissao.idProfissao = Profissao_idProfissao inner join hospital on hospital.idHospital = profissional.Hospital_idHospital");
 		Profissional p = null;
-                Vector<Profissional> profissional = new Vector<Profissional>();
+                Vector<Profissional> profissionais = new Vector<Profissional>();
 		try{
 			while (rs.next()){
-				//char sexo = rs.getString(2).toCharArray()[0];
-				 p = new Profissional(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4),  rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10),
-                        rs.getInt(10),hospitalDao.getHospitalId(rs.getInt(11)) ,profissaoDao.getProfissaoId(rs.getInt(12)));
-                               profissional.add(p);
+				char sexo = rs.getString(2).toCharArray()[0];
+				p = new Profissional(rs.getInt("idProfissional"),rs.getString("usuario"),rs.getString("senha"), rs.getString("nome"),rs.getString("data_nascimento"), rs.getString("cpf"),rs.getString("endereco"),rs.getString("telefone"),rs.getString("numero_conselho"),rs.getString("email"),rs.getInt("tipo_profissional"),hospitalDao.getHospitalId(rs.getInt("Profissao_idProfissao")),profissaoDao.getProfissaoId(rs.getInt("Hospital_idHospital")));
+                                profissionais.add(p);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return profissional;
+		return profissionais;
 	}
-    
+
     
     
     

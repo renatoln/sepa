@@ -30,7 +30,7 @@ public class PacienteDao {
 		return lista;
 	}
 	 public  Vector<Paciente> getPacientes(){
-		ResultSet rs = bdMySql.executarBuscaSQL("Select idPaciente,nomePaciente, endereco, telefone, rg, dtNasc, cpf  from paciente ");
+		ResultSet rs = bdMySql.executarBuscaSQL("Select idPaciente,nome, endereco, telefone, rg, dtNasc, cpf  from paciente ");
 		Paciente p = null;
                 Vector<Paciente> pacientes = new Vector<Paciente>();
 		try{
@@ -45,7 +45,7 @@ public class PacienteDao {
 		return pacientes;
 	}
 	public Paciente getPaciente(int id){
-		ResultSet rs = bdMySql.executarBuscaSQL("Select nomePaciente, endereco, telefone, rg, dtNasc, cpf  from paciente where idPaciente = "+ id);
+		ResultSet rs = bdMySql.executarBuscaSQL("Select nome, endereco, telefone, rg, dtNasc, cpf  from paciente where idPaciente = "+ id);
 		Paciente p = null;
 		try{
 			if (rs.next()){

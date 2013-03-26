@@ -127,13 +127,15 @@ CREATE TABLE `atendimento` (
   PRIMARY KEY (`idAtendimento`),
   KEY `fk_Atendimento_Prontuario1` (`Prontuario_idProntuario`),
   CONSTRAINT `fk_Atendimento_Prontuario1` FOREIGN KEY (`Prontuario_idProntuario`) REFERENCES `prontuario` (`idProntuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sepa`.`atendimento`
 --
 
 /*!40000 ALTER TABLE `atendimento` DISABLE KEYS */;
+INSERT INTO `atendimento` (`idAtendimento`,`data`,`hora`,`descricao`,`Prontuario_idProntuario`) VALUES 
+ (1,'2005-04-12','18:00:00','Exames',1);
 /*!40000 ALTER TABLE `atendimento` ENABLE KEYS */;
 
 
@@ -284,13 +286,15 @@ CREATE TABLE `paciente` (
   `dtNasc` date NOT NULL,
   `cpf` varchar(11) NOT NULL,
   PRIMARY KEY (`idPaciente`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sepa`.`paciente`
 --
 
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
+INSERT INTO `paciente` (`idPaciente`,`nome`,`endereco`,`telefone`,`rg`,`dtNasc`,`cpf`) VALUES 
+ (1,'joao','Rua f','7532411925','1140306693','2010-01-02','36985014725');
 /*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
 
 
@@ -408,13 +412,15 @@ CREATE TABLE `prontuario` (
   KEY `fk_Prontuario_Pacientes1` (`Paciente_idPaciente`),
   CONSTRAINT `fk_Prontuario_Pacientes1` FOREIGN KEY (`Paciente_idPaciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Prontuario_Profissionais1` FOREIGN KEY (`Profissional_idProfissional`) REFERENCES `profissional` (`idProfissional`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sepa`.`prontuario`
 --
 
 /*!40000 ALTER TABLE `prontuario` DISABLE KEYS */;
+INSERT INTO `prontuario` (`idProntuario`,`Profissional_idProfissional`,`Paciente_idPaciente`) VALUES 
+ (1,3,1);
 /*!40000 ALTER TABLE `prontuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
