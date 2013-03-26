@@ -15,9 +15,11 @@ import javax.swing.JOptionPane;
  * @author Lay and Lary
  */
 public class TelaAtendimento extends javax.swing.JFrame {
-AtendimentoDao atendimentoDao = new AtendimentoDao();
-    BDMySql bd  = BDMySql.getInstance();
+
+    AtendimentoDao atendimentoDao = new AtendimentoDao();
+    BDMySql bd = BDMySql.getInstance();
     private JDialog formAtendimento;
+
     /**
      * Creates new form TelaAtendimento
      */
@@ -41,7 +43,7 @@ AtendimentoDao atendimentoDao = new AtendimentoDao();
         jbExcluir = new javax.swing.JButton();
         jbSair = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jtListaAtendimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,32 +99,31 @@ AtendimentoDao atendimentoDao = new AtendimentoDao();
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jbInserir)
-                .addGap(18, 18, 18)
-                .addComponent(jbAtualizar)
-                .addGap(18, 18, 18)
-                .addComponent(jbExcluir)
-                .addGap(32, 32, 32)
-                .addComponent(jbSair, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbInserir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbAtualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbExcluir)
+                        .addGap(32, 32, 32)
+                        .addComponent(jbSair, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbInserir)
                     .addComponent(jbAtualizar)
                     .addComponent(jbExcluir)
                     .addComponent(jbSair))
-                .addGap(39, 39, 39))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -135,8 +136,8 @@ AtendimentoDao atendimentoDao = new AtendimentoDao();
             formAtendimento = new CadastraAtendimento(this, true);
             formAtendimento.setLocationRelativeTo(this);
         }
-       formAtendimento = new CadastraAtendimento(this, true);
-      formAtendimento.setVisible(true);
+        formAtendimento = new CadastraAtendimento(this, true);
+        formAtendimento.setVisible(true);
         atualizaTabela();
     }//GEN-LAST:event_jbInserirActionPerformed
 
@@ -144,30 +145,32 @@ AtendimentoDao atendimentoDao = new AtendimentoDao();
 
         int i = jtListaAtendimentos.getSelectedRow();
 
-        if (i == -1) JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela","Erro",JOptionPane.ERROR_MESSAGE);
-        else {
-            int  id = Integer.parseInt((String)jtListaAtendimentos.getValueAt(i, 0));
+        if (i == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int id = Integer.parseInt((String) jtListaAtendimentos.getValueAt(i, 0));
 
-           formAtendimento = new CadastraAtendimento(this, true,id);
-           formAtendimento.setLocationRelativeTo(this);
+            formAtendimento = new CadastraAtendimento(this, true, id);
+            formAtendimento.setLocationRelativeTo(this);
             formAtendimento.setVisible(true);
             atualizaTabela();
         }
     }//GEN-LAST:event_jbAtualizarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        Object[] options = { "Confirmar", "Cancelar" };
+        Object[] options = {"Confirmar", "Cancelar"};
         int m = JOptionPane.showOptionDialog(null,
-            "Deseja realmente exluir o registro selecionado?", "Informação",
-            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-            null, options, options[0]);
+                "Deseja realmente exluir o registro selecionado?", "Informação",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, options, options[0]);
         if (m == 0) {
             int i = jtListaAtendimentos.getSelectedRow();
-            if (i == -1) JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela","Erro",JOptionPane.ERROR_MESSAGE);
-            else {
-                int  id = Integer.parseInt((String)jtListaAtendimentos.getValueAt(i, 0));
+            if (i == -1) {
+                JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int id = Integer.parseInt((String) jtListaAtendimentos.getValueAt(i, 0));
                 atendimentoDao.deletaPessoa(id);
-                JOptionPane.showMessageDialog(null,"Registro excluído com sucesso","Informação",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Registro excluído com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabela();
 
             }
@@ -208,34 +211,33 @@ AtendimentoDao atendimentoDao = new AtendimentoDao();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 TelaAtendimento at = new TelaAtendimento();
                 at.setTitle("Sistema de controle de Atendimentos");
                 at.atualizaTabela();
-               at.setVisible(true);
+                at.setVisible(true);
             }
         });
     }
-    
-    public void atualizaTabela(){
-		Object[][] lista = atendimentoDao.listaAtendimentos();
-		jtListaAtendimentos.setModel(new javax.swing.table.DefaultTableModel(
-				lista, new String[] { "id", "Data", "Horario",	"descricao","Prontuario"}) {
-			
-		});
-		jtListaAtendimentos.getColumnModel().getColumn(0).setPreferredWidth(50);
-		jtListaAtendimentos.getColumnModel().getColumn(0).setResizable(true);
-		jtListaAtendimentos.getColumnModel().getColumn(1).setPreferredWidth(150);
-		jtListaAtendimentos.getColumnModel().getColumn(1).setResizable(true);
-		jtListaAtendimentos.getColumnModel().getColumn(2).setPreferredWidth(60);
-		jtListaAtendimentos.getColumnModel().getColumn(2).setResizable(true);
-		jtListaAtendimentos.getColumnModel().getColumn(3).setPreferredWidth(160);
-		jtListaAtendimentos.getColumnModel().getColumn(3).setResizable(true);
-                jtListaAtendimentos.getColumnModel().getColumn(3).setPreferredWidth(160);
-		jtListaAtendimentos.getColumnModel().getColumn(3).setResizable(true);
 
-	}
+    public void atualizaTabela() {
+        Object[][] lista = atendimentoDao.listaAtendimentos();
+        jtListaAtendimentos.setModel(new javax.swing.table.DefaultTableModel(
+                lista, new String[]{"id", "Data", "Horario", "descricao", "Prontuario"}) {
+        });
+        jtListaAtendimentos.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jtListaAtendimentos.getColumnModel().getColumn(0).setResizable(true);
+        jtListaAtendimentos.getColumnModel().getColumn(1).setPreferredWidth(150);
+        jtListaAtendimentos.getColumnModel().getColumn(1).setResizable(true);
+        jtListaAtendimentos.getColumnModel().getColumn(2).setPreferredWidth(60);
+        jtListaAtendimentos.getColumnModel().getColumn(2).setResizable(true);
+        jtListaAtendimentos.getColumnModel().getColumn(3).setPreferredWidth(160);
+        jtListaAtendimentos.getColumnModel().getColumn(3).setResizable(true);
+        jtListaAtendimentos.getColumnModel().getColumn(3).setPreferredWidth(160);
+        jtListaAtendimentos.getColumnModel().getColumn(3).setResizable(true);
 
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAtualizar;

@@ -7,6 +7,7 @@ package visao;
 import controle.Controle;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,8 @@ import javax.swing.JOptionPane;
 import modelo.negocio.Hospital;
 import modelo.negocio.Profissao;
 import modelo.negocio.Profissional;
+import modelo.negocio.util.Utilidade;
+import modelo.negocio.util.UtilidadesData;
 
 /**
  *
@@ -23,8 +26,9 @@ import modelo.negocio.Profissional;
 public class CadastraProfissional extends javax.swing.JDialog {
 
     Controle controle = new Controle();
-    private int id = -1;
-    private String formato = "dd/MM/yyyy";
+    UtilidadesData ud = new UtilidadesData();
+    private String formato = UtilidadesData.DATA_DD_MM_YYYY;
+    // private String formato = "dd/MM/yyyy";
     private int idprofissional = -1;
 
     /**
@@ -42,6 +46,34 @@ public class CadastraProfissional extends javax.swing.JDialog {
         preencheTela(id);
         idprofissional = id;
 
+
+    }
+
+    private boolean verificarCampos() {
+
+        String sErro = "";
+        boolean erro = false;
+
+        if (jTextFieldNome.getText().equals("")) {
+            sErro = "O nome não pode ficar em branco!";
+            jTextFieldNome.grabFocus();
+            erro = true;
+        }
+        else if (jTextFieldDtnascimento.getText().equals("")) {
+            sErro = "A data de nascimento nao pode ficar em branco!";
+            jTextFieldDtnascimento.grabFocus();
+            erro = true;
+        }else if (!ud.ehDataValida(jTextFieldDtnascimento.getText(), UtilidadesData.DATA_DD_MM_YYYY)) {
+            sErro = "Data invalida!";
+            jTextFieldDtnascimento.grabFocus();
+            erro = true;
+        }
+        
+        if (erro) {
+            JOptionPane.showMessageDialog(null, sErro, "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
 
     }
 
@@ -131,6 +163,11 @@ public class CadastraProfissional extends javax.swing.JDialog {
         });
 
         jButtonLimpar.setText("Limpar");
+        jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -203,11 +240,11 @@ public class CadastraProfissional extends javax.swing.JDialog {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jRadioButtonUsuSistema)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                                                 .addComponent(jLabel6))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jRadioButtonProfissionalSaude)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                                                 .addComponent(jLabel7)))
                                         .addGap(27, 27, 27)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -218,9 +255,9 @@ public class CadastraProfissional extends javax.swing.JDialog {
                                     .addComponent(jTextFieldEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
                                     .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 60, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 384, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -323,55 +360,70 @@ public class CadastraProfissional extends javax.swing.JDialog {
             }
 
             if (controle.validaData(jTextFieldDtnascimento.getText(), formato)) {
-                try {
-                    if (controle.ComparaData(jTextFieldDtnascimento.getText())) {
-                        if (controle.validaCpf(jTextFieldCpf.getText())) {
-                            if (jPasswordFieldSenha.getText().equals(jPasswordFieldConfirmaSenha.getText())) {
-                              //  try {
-                                  //  if (controle.BuscaCpf(jTextFieldCpf.getText())) {
-                                        String data = controle.visualizaAMD(jTextFieldDtnascimento.getText());
-                                        System.out.println(data);
-                                        Profissional p = new Profissional(id, jTextFieldNome.getText(), jTextFieldUsuario.getText(), jPasswordFieldSenha.getText(), data, jTextFieldCpf.getText(), jTextFieldEndereco.getText(), jTextFieldTelefone.getText(), jTextFieldConselho.getText(), jTextFieldEmail.getText(), tipo,
-                                                (Hospital) jComboBoxHospital.getSelectedItem(), (Profissao) jComboBoxProfissao.getSelectedItem());
+                if (verificarCampos()) {
+                    try {
+                        if (controle.ComparaData(jTextFieldDtnascimento.getText())) {
+                            if (controle.validaCpf(jTextFieldCpf.getText())) {
+                                if (jPasswordFieldSenha.getText().equals(jPasswordFieldConfirmaSenha.getText())) {
+                                    //  try {
+                                    // if (controle.BuscaCpf(jTextFieldCpf.getText())) {
+                                
+                                     String data = controle.visualizaAMD(jTextFieldDtnascimento.getText());
+                                     // Date data = controle.transformaData_GregorianCalendar_to_YYYYMMDD(jTextFieldDtnascimento.getText());
+                                     System.out.println(data);
+                                     Profissional p = new Profissional(idprofissional, jTextFieldNome.getText(), jTextFieldUsuario.getText(), Utilidade.criptografa_md5(jPasswordFieldSenha.getText()), data, jTextFieldCpf.getText(), jTextFieldEndereco.getText(), jTextFieldTelefone.getText(), jTextFieldConselho.getText(), jTextFieldEmail.getText(), tipo,
+                                     (Hospital) jComboBoxHospital.getSelectedItem(), (Profissao) jComboBoxProfissao.getSelectedItem());
+                                     
+                                    //ud.getDataGregorianCalendar();
+                                    //      Profissional p = new Profissional(idprofissional, jTextFieldNome.getText(), jTextFieldUsuario.getText(), Utilidade.criptografa_md5(jPasswordFieldSenha.getText()), ud.getDataGregorianCalendar(), jTextFieldCpf.getText(), jTextFieldEndereco.getText(), jTextFieldTelefone.getText(), jTextFieldConselho.getText(), jTextFieldEmail.getText(), tipo,
+                                    //        (Hospital) jComboBoxHospital.getSelectedItem(), (Profissao) jComboBoxProfissao.getSelectedItem());
 
-                                        String msn;
-                                        if (id == -1) {
-                                            //String msn;
 
+                                  //  Profissional p = new Profissional(idprofissional, jTextFieldNome.getText(), jTextFieldUsuario.getText(), Utilidade.criptografa_md5(jPasswordFieldSenha.getText()), ud.getDataGregorianCalendar(), jTextFieldCpf.getText(), jTextFieldEndereco.getText(), jTextFieldTelefone.getText(), jTextFieldConselho.getText(), tipo, (Hospital) jComboBoxHospital.getSelectedItem(), (Profissao) jComboBoxProfissao.getSelectedItem(), jTextFieldTelefone.getText());
+                                    String msn = null;
 
+                                    String cpf = jTextFieldCpf.getText();
+                                    if (idprofissional == -1) {
+                                        if (controle.BuscaCpf(cpf)) {
+
+                                            //controle.cadastraProfissional(p);
                                             controle.cadastraProfissional(p);
 
                                             msn = "Pessoa cadastrada com sucesso";
-                                            //   msn = "Pessoa cadastrada com sucesso";
-                                            // fechaJanela(msn);
+
                                         } else {
-                                            controle.atualizaProfissional(p);
-                                            msn = "Pessoa atualizada com sucesso";
+                                            JOptionPane.showMessageDialog(null, "Usuario Já Possui CPF cadastrado", "Erro de validação", JOptionPane.ERROR_MESSAGE);
                                         }
-                                        fechaJanela(msn);
-
-
-                                  /*  }
-                                    else {
-                                        JOptionPane.showMessageDialog(null, "Usuario Já Possui CPF cadastrado", "Erro de validação", JOptionPane.ERROR_MESSAGE);
+                                    } else {
+                                        controle.atualizaProfissional(p);
+                                        msn = "Pessoa atualizada com sucesso";
+                                        //    idprofissional = -1;
                                     }
+                                    fechaJanela(msn);
 
-                            /*    } catch (SQLException ex) {
-                                    Logger.getLogger(CadastraProfissional.class.getName()).log(Level.SEVERE, null, ex);
-                                }*/
+                                    // idprofissional = -1;
+                                /*     }
+                                     else {
+                                     JOptionPane.showMessageDialog(null, "Usuario Já Possui CPF cadastrado", "Erro de validação", JOptionPane.ERROR_MESSAGE);
+                                    
 
+                                     } catch (SQLException ex) {
+                                     Logger.getLogger(CadastraProfissional.class.getName()).log(Level.SEVERE, null, ex);
+                                     }*/
+
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Senha Não Confimada", "Erro de validação", JOptionPane.ERROR_MESSAGE);
+                                }
                             } else {
-                                JOptionPane.showMessageDialog(null, "Senha Não Confimada", "Erro de validação", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "CPF invalido", "Erro de validação", JOptionPane.ERROR_MESSAGE);
                             }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "CPF invalido", "Erro de validação", JOptionPane.ERROR_MESSAGE);
-                        }
 
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Data de Nascimento Maior que data Atual", "Erro de validação", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Data de Nascimento Maior que data Atual", "Erro de validação", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(CadastraProfissional.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(CadastraProfissional.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 System.out.println("Não validou");
@@ -383,14 +435,19 @@ public class CadastraProfissional extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
+
+    private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
+        limparTela();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLimparActionPerformed
     private void preencheTela(int id) throws ParseException {
 
         Profissional p = controle.getProfissionalId(id);
         jTextFieldNome.setText(p.getNome());
         jTextFieldUsuario.setText(p.getUsuario());
-        jPasswordFieldSenha.setText(p.getSenha());
-        jPasswordFieldConfirmaSenha.setText(p.getSenha());
+        //  jPasswordFieldSenha.setText(p.getSenha());
+        //  jPasswordFieldConfirmaSenha.setText(p.getSenha());
         jTextFieldDtnascimento.setText(controle.visualizaDMA(p.getDtNascimento()));
+      //  jTextFieldDtnascimento.setText(UtilidadesData.transformaData_GregorianCalendar_to_DDMMYYYY(p.getDataNascimento()));
         jTextFieldCpf.setText(p.getCpf());
         jTextFieldTelefone.setText(p.getTelefone());
         jTextFieldConselho.setText(p.getNoConcelho());
@@ -420,6 +477,20 @@ public class CadastraProfissional extends javax.swing.JDialog {
          }
          }*/
         jButtonCadastrar.setText("Atualizar");
+    }
+
+    private void limparTela() {
+        jTextFieldNome.setText("");
+        jTextFieldUsuario.setText("");
+        //  jPasswordFieldSenha.setText(p.getSenha());
+        //  jPasswordFieldConfirmaSenha.setText(p.getSenha());
+        jTextFieldDtnascimento.setText("");
+        jTextFieldCpf.setText("");
+        jTextFieldTelefone.setText("");
+        jTextFieldConselho.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldEndereco.setText("");
+
     }
 
     private void fechaJanela(String msn) {

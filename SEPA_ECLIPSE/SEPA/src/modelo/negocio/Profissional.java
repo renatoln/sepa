@@ -4,6 +4,8 @@
  */
 package modelo.negocio;
 
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author WELLITON
@@ -15,6 +17,7 @@ public class Profissional {
     private String usuario;
     private String senha;
     private String dtNascimento;
+    private GregorianCalendar dataNascimento;
     private String cpf;
     private String endereco;
     private String email;
@@ -23,6 +26,7 @@ public class Profissional {
     private Hospital hospital;
     private Profissao profissao;
     private String telefone;
+   
 
     public Profissional(int id_profissional, String nome, String usuario, String senha, String dtNascimento, String cpf, String endereco, String telefone, String noConcelho,String email,  int tipo, Hospital hospital, Profissao profissao) {
         this.id_profissional = id_profissional;
@@ -40,7 +44,7 @@ public class Profissional {
         this.telefone = telefone;
     }
 
-    public Profissional(String nome, String usuario, String senha, String dtNascimento, String cpf, String endereco,String telefone,  String noConcelho,String email,int tipo, Hospital hospital, Profissao profissao) {
+   public Profissional(String nome, String usuario, String senha, String dtNascimento, String cpf, String endereco,String telefone,  String noConcelho,String email,int tipo, Hospital hospital, Profissao profissao) {
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
@@ -55,6 +59,39 @@ public class Profissional {
         this.telefone = telefone;
     }
 
+  /*  public Profissional(int id_profissional, String nome, String usuario, String senha, GregorianCalendar dataNascimento, String cpf, String endereco, String email, String noConcelho, int tipo, Hospital hospital, Profissao profissao, String telefone) {
+        this.id_profissional = id_profissional;
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.email = email;
+        this.noConcelho = noConcelho;
+        this.tipo = tipo;
+        this.hospital = hospital;
+        this.profissao = profissao;
+        this.telefone = telefone;
+    }
+*/
+  /*  public Profissional(String nome, String usuario, String senha, GregorianCalendar dataNascimento, String cpf, String endereco, String email, String noConcelho, int tipo, Hospital hospital, Profissao profissao, String telefone) {
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.email = email;
+        this.noConcelho = noConcelho;
+        this.tipo = tipo;
+        this.hospital = hospital;
+        this.profissao = profissao;
+        this.telefone = telefone;
+    }
+
+    
+    */
     
     public int getId_profissional() {
         return id_profissional;
@@ -152,9 +189,19 @@ public class Profissional {
         return hospital;
     }
 
+    public GregorianCalendar getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(GregorianCalendar dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return   this.nome;
+        return nome;
     }
 
     public Profissao getProfissao() {

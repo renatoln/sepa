@@ -1,12 +1,12 @@
 /*
- * TelaArea.java
+ * TelaProfissao.java
  *
- * Created on 3 de Março de 2013, 16:56
+ * Created on 3 de Março de 2013, 17:46
  */
 package visao;
 
-import modelo.bd.AreaDao;
 import modelo.bd.BDMySql;
+import modelo.bd.FichaDao;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -14,14 +14,16 @@ import javax.swing.JOptionPane;
  *
  * @author  Jessica
  */
-public class TelaArea extends javax.swing.JFrame {
+public class TelaFichaPrincipal extends javax.swing.JFrame {
 
-    AreaDao areaDao = new AreaDao();
+    FichaDao fichaDao = new FichaDao();
     BDMySql bd = BDMySql.getInstance();
-    private JDialog formArea;
+    private JDialog telaFicha;
 
-    public TelaArea() {
+
+    public TelaFichaPrincipal() {
         initComponents();
+        atualizaTabela();
     }
 
     /** This method is called from within the constructor to
@@ -33,7 +35,7 @@ public class TelaArea extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtListaAreas = new javax.swing.JTable();
+        jtListaAvaliacao = new javax.swing.JTable();
         btInserir = new javax.swing.JButton();
         btAtualizar = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
@@ -41,21 +43,25 @@ public class TelaArea extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jtListaAreas.setFont(new java.awt.Font("Tahoma", 1, 11));
-        jtListaAreas.setModel(new javax.swing.table.DefaultTableModel(
+        jtListaAvaliacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Descricao"
+                "ID", "Nome", "Descrição"
             }
         ));
-        jScrollPane1.setViewportView(jtListaAreas);
+        jScrollPane1.setViewportView(jtListaAvaliacao);
 
-        btInserir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btInserir.setFont(new java.awt.Font("Tahoma", 1, 11));
         btInserir.setText("Inserir");
         btInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,47 +100,58 @@ public class TelaArea extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(21, 21, 21)
                         .addComponent(btInserir)
-                        .addGap(18, 18, 18)
+                        .addGap(23, 23, 23)
                         .addComponent(btAtualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btExcluir)
                         .addGap(18, 18, 18)
-                        .addComponent(btSair)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(btExcluir)
+                        .addGap(28, 28, 28)
+                        .addComponent(btSair))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btInserir)
-                    .addComponent(btAtualizar)
+                    .addComponent(btSair)
                     .addComponent(btExcluir)
-                    .addComponent(btSair))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(btAtualizar))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
+    private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
+        if (telaFicha == null) {
+            //JFrame mainFrame = TelaPrincipal.getApplication().getMainFrame();
+            telaFicha = new TelaFicha(this, true);
+            telaFicha.setLocationRelativeTo(this);
+        }
+        telaFicha.setVisible(true);
+        atualizaTabela();
+                                           
+    
+    }//GEN-LAST:event_btInserirActionPerformed
 
-        int i = jtListaAreas.getSelectedRow();
+    private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
+        int i = jtListaAvaliacao.getSelectedRow();
 
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
-            int id = Integer.parseInt((String) jtListaAreas.getValueAt(i, 0));
+            int id = Integer.parseInt((String) jtListaAvaliacao.getValueAt(i, 0));
 
-            formArea = new FormArea(this, true, id);
-            formArea.setLocationRelativeTo(this);
-            formArea.setVisible(true);
+            telaFicha = new TelaFicha(this, true, id);
+            telaFicha.setLocationRelativeTo(this);
+            telaFicha.setVisible(true);
             atualizaTabela();
         }
     }//GEN-LAST:event_btAtualizarActionPerformed
@@ -146,12 +163,12 @@ public class TelaArea extends javax.swing.JFrame {
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                 null, options, options[0]);
         if (m == 0) {
-            int i = jtListaAreas.getSelectedRow();
+            int i = jtListaAvaliacao.getSelectedRow();
             if (i == -1) {
                 JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela", "Erro", JOptionPane.ERROR_MESSAGE);
             } else {
-                int id = Integer.parseInt((String) jtListaAreas.getValueAt(i, 0));
-                areaDao.deletaArea(id);
+                int id = Integer.parseInt((String) jtListaAvaliacao.getValueAt(i, 0));
+                fichaDao.deletaFicha(id);
                 JOptionPane.showMessageDialog(null, "Registro excluído com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabela();
 
@@ -163,16 +180,6 @@ public class TelaArea extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
-        if (formArea == null) {
-            //JFrame mainFrame = TelaPrincipal.getApplication().getMainFrame();
-            formArea = new FormArea(this, true);
-            formArea.setLocationRelativeTo(this);
-        }
-        formArea.setVisible(true);
-        atualizaTabela();
-    }//GEN-LAST:event_btInserirActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -180,8 +187,8 @@ public class TelaArea extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                TelaArea t = new TelaArea();
-                t.setTitle("Sistema de Evolução de pacientes");
+                TelaFichaPrincipal t = new TelaFichaPrincipal();
+                t.setTitle("Sistema de Avaliação de pacientes");
                 t.atualizaTabela();
                 t.setVisible(true);
             }
@@ -189,16 +196,17 @@ public class TelaArea extends javax.swing.JFrame {
     }
 
     public void atualizaTabela() {
-        Object[][] lista = areaDao.listaAreas();
-        jtListaAreas.setModel(new javax.swing.table.DefaultTableModel(
-                lista, new String[]{"id", "Nome", "Descricao"}) {
+        Object[][] lista = fichaDao.lista();
+        jtListaAvaliacao.setModel(new javax.swing.table.DefaultTableModel(
+                lista, new String[]{"id", "Nome","Descrição"}) {
         });
-        jtListaAreas.getColumnModel().getColumn(0).setPreferredWidth(50);
-        jtListaAreas.getColumnModel().getColumn(0).setResizable(true);
-        jtListaAreas.getColumnModel().getColumn(1).setPreferredWidth(150);
-        jtListaAreas.getColumnModel().getColumn(1).setResizable(true);
-        jtListaAreas.getColumnModel().getColumn(2).setPreferredWidth(60);
-        jtListaAreas.getColumnModel().getColumn(2).setResizable(true);
+        jtListaAvaliacao.getColumnModel().getColumn(0).setPreferredWidth(50);
+        jtListaAvaliacao.getColumnModel().getColumn(0).setResizable(true);
+        jtListaAvaliacao.getColumnModel().getColumn(1).setPreferredWidth(150);
+        jtListaAvaliacao.getColumnModel().getColumn(1).setResizable(true);
+        jtListaAvaliacao.getColumnModel().getColumn(1).setPreferredWidth(150);
+        jtListaAvaliacao.getColumnModel().getColumn(1).setResizable(true);
+
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -207,6 +215,6 @@ public class TelaArea extends javax.swing.JFrame {
     private javax.swing.JButton btInserir;
     private javax.swing.JButton btSair;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtListaAreas;
+    private javax.swing.JTable jtListaAvaliacao;
     // End of variables declaration//GEN-END:variables
 }
