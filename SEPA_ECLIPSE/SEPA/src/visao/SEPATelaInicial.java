@@ -166,6 +166,7 @@ public class SEPATelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         new TelaAtendimento().setVisible(true);
+
 }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jmiCadastro_AreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastro_AreaActionPerformed
