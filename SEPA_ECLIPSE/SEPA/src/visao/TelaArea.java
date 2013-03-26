@@ -124,14 +124,12 @@ public class TelaArea extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void btAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarActionPerformed
-
         int i = jtListaAreas.getSelectedRow();
 
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
             int id = Integer.parseInt((String) jtListaAreas.getValueAt(i, 0));
-
             formArea = new FormArea(this, true, id);
             formArea.setLocationRelativeTo(this);
             formArea.setVisible(true);
@@ -165,10 +163,9 @@ public class TelaArea extends javax.swing.JFrame {
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
         if (formArea == null) {
-            //JFrame mainFrame = TelaPrincipal.getApplication().getMainFrame();
             formArea = new FormArea(this, true);
             formArea.setLocationRelativeTo(this);
-        }
+        } else
         formArea.setVisible(true);
         atualizaTabela();
     }//GEN-LAST:event_btInserirActionPerformed

@@ -3,7 +3,6 @@
  *
  * Created on 3 de Março de 2013, 18:19
  */
-
 package visao;
 
 import modelo.bd.AreaDao;
@@ -16,17 +15,15 @@ import javax.swing.JOptionPane;
  * @author  Jessica
  */
 public class FormArea extends javax.swing.JDialog {
-    
+
     AreaDao areaDao = new AreaDao();
     BDMySql bd = BDMySql.getInstance();
     private int idArea = -1;
 
-    
     public FormArea(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    
 
     public FormArea(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
@@ -34,7 +31,7 @@ public class FormArea extends javax.swing.JDialog {
         preencheTela(id);
         idArea = id;
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -52,22 +49,22 @@ public class FormArea extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel1.setText("Nome: ");
 
-        jtfNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtfNome.setFont(new java.awt.Font("Tahoma", 1, 11));
         jtfNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfNomeActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12));
         jLabel2.setText("Descricao:");
 
-        jtfDescricao.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtfDescricao.setFont(new java.awt.Font("Tahoma", 1, 11));
 
-        btInserir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btInserir.setFont(new java.awt.Font("Tahoma", 1, 11));
         btInserir.setText("Inserir");
         btInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +72,7 @@ public class FormArea extends javax.swing.JDialog {
             }
         });
 
-        btLimpar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btLimpar.setFont(new java.awt.Font("Tahoma", 1, 11));
         btLimpar.setText("Limpar");
         btLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,9 +97,9 @@ public class FormArea extends javax.swing.JDialog {
                         .addComponent(jtfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(133, Short.MAX_VALUE)
+                .addContainerGap(145, Short.MAX_VALUE)
                 .addComponent(btInserir)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btLimpar)
                 .addContainerGap())
         );
@@ -119,8 +116,8 @@ public class FormArea extends javax.swing.JDialog {
                     .addComponent(jtfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btInserir)
-                    .addComponent(btLimpar))
+                    .addComponent(btLimpar)
+                    .addComponent(btInserir))
                 .addContainerGap())
         );
 
@@ -132,7 +129,7 @@ public class FormArea extends javax.swing.JDialog {
 }//GEN-LAST:event_jtfNomeActionPerformed
 
     private void btInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInserirActionPerformed
-    if (verificarCampos()) {
+        if (verificarCampos()) {
 
             Area a = new Area(
                     jtfNome.getText(), jtfDescricao.getText());
@@ -141,20 +138,21 @@ public class FormArea extends javax.swing.JDialog {
                 areaDao.cadastraArea(a);
                 msn = "Area cadastrada com sucesso";
             } else {
-               areaDao.atualizaArea(a);
+                a.setId(idArea);
+                areaDao.atualizaArea(a);
                 msn = "Area atualizada com sucesso";
                 System.out.println(a);
             }
             fechaJanela(msn);
         }
-    
+
     }//GEN-LAST:event_btInserirActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
         limparTela();
     }//GEN-LAST:event_btLimparActionPerformed
-    
-  private void limparTela() {
+
+    private void limparTela() {
         jtfNome.setText("");
         jtfNome.grabFocus();//coloca o focus no campo
         jtfDescricao.setText("");
@@ -169,7 +167,7 @@ public class FormArea extends javax.swing.JDialog {
             jtfNome.grabFocus();
             erro = true;
         }
-         if (jtfDescricao.getText().equals("")) {
+        if (jtfDescricao.getText().equals("")) {
             sErro = "A descrição não pode ficar em branco!";
             jtfDescricao.grabFocus();
             erro = true;
@@ -188,17 +186,15 @@ public class FormArea extends javax.swing.JDialog {
         jtfNome.setText(a.getNome());
         jtfDescricao.setText(a.getDescricao());
         btInserir.setText("Atualizar");
-       
+
     }
-   
-    
 
     private void fechaJanela(String msn) {
         this.setVisible(false);
         JOptionPane.showMessageDialog(null, msn, "Informação", JOptionPane.INFORMATION_MESSAGE);
 
 
-    // TODO add your handling code here:
+        // TODO add your handling code here:
     }
 
     /**
@@ -219,7 +215,6 @@ public class FormArea extends javax.swing.JDialog {
             }
         });
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btInserir;
     private javax.swing.JButton btLimpar;
@@ -228,5 +223,4 @@ public class FormArea extends javax.swing.JDialog {
     private javax.swing.JTextField jtfDescricao;
     private javax.swing.JTextField jtfNome;
     // End of variables declaration//GEN-END:variables
-    
 }
