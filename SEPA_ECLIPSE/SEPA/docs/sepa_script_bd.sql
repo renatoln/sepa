@@ -1,7 +1,7 @@
 -- MySQL Administrator dump 1.4
 --
 -- ------------------------------------------------------
--- Server version	5.0.45-community-nt
+-- Server version	5.1.49-community
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,12 +27,12 @@ USE sepa;
 
 DROP TABLE IF EXISTS `agendamento`;
 CREATE TABLE `agendamento` (
-  `idAgendamento` int(11) NOT NULL auto_increment,
+  `idAgendamento` int(11) NOT NULL AUTO_INCREMENT,
   `data` date NOT NULL,
   `hora` time NOT NULL,
   `Paciente_idPaciente` int(11) NOT NULL,
   `Profissional_idProfissional` int(11) NOT NULL,
-  PRIMARY KEY  (`idAgendamento`),
+  PRIMARY KEY (`idAgendamento`),
   KEY `fk_AgendamentoConsulta_Pacientes1` (`Paciente_idPaciente`),
   KEY `fk_AgendamentoConsulta_Profissionais1` (`Profissional_idProfissional`),
   CONSTRAINT `fk_AgendamentoConsulta_Pacientes1` FOREIGN KEY (`Paciente_idPaciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -53,17 +53,19 @@ CREATE TABLE `agendamento` (
 
 DROP TABLE IF EXISTS `area`;
 CREATE TABLE `area` (
-  `idArea` int(11) NOT NULL auto_increment,
+  `idArea` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `descricao` text,
-  PRIMARY KEY  (`idArea`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`idArea`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sepa`.`area`
 --
 
 /*!40000 ALTER TABLE `area` DISABLE KEYS */;
+INSERT INTO `area` (`idArea`,`nome`,`descricao`) VALUES 
+ (1,'Ortopedia','Ortopedia total');
 /*!40000 ALTER TABLE `area` ENABLE KEYS */;
 
 
@@ -117,23 +119,21 @@ CREATE TABLE `area_x_orientacao` (
 
 DROP TABLE IF EXISTS `atendimento`;
 CREATE TABLE `atendimento` (
-  `idAtendimento` int(11) NOT NULL auto_increment,
+  `idAtendimento` int(11) NOT NULL AUTO_INCREMENT,
   `data` date NOT NULL,
-  `hora` time default NULL,
+  `hora` time DEFAULT NULL,
   `descricao` text,
   `Prontuario_idProntuario` int(11) NOT NULL,
-  PRIMARY KEY  (`idAtendimento`),
+  PRIMARY KEY (`idAtendimento`),
   KEY `fk_Atendimento_Prontuario1` (`Prontuario_idProntuario`),
   CONSTRAINT `fk_Atendimento_Prontuario1` FOREIGN KEY (`Prontuario_idProntuario`) REFERENCES `prontuario` (`idProntuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sepa`.`atendimento`
 --
 
 /*!40000 ALTER TABLE `atendimento` DISABLE KEYS */;
-INSERT INTO `atendimento` (`idAtendimento`,`data`,`hora`,`descricao`,`Prontuario_idProntuario`) VALUES 
- (1,'2009-09-12','18:00:00','Exame de sangue',1);
 /*!40000 ALTER TABLE `atendimento` ENABLE KEYS */;
 
 
@@ -165,9 +165,9 @@ CREATE TABLE `atendimento_x_orientacao` (
 
 DROP TABLE IF EXISTS `doenca`;
 CREATE TABLE `doenca` (
-  `idDoenca` int(11) NOT NULL auto_increment,
+  `idDoenca` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
-  PRIMARY KEY  (`idDoenca`)
+  PRIMARY KEY (`idDoenca`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -184,11 +184,11 @@ CREATE TABLE `doenca` (
 
 DROP TABLE IF EXISTS `ficha_avaliacao`;
 CREATE TABLE `ficha_avaliacao` (
-  `idFicha_avaliacao` int(11) NOT NULL auto_increment,
+  `idFicha_avaliacao` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `descricao` text,
   `Area_idArea` int(11) NOT NULL,
-  PRIMARY KEY  (`idFicha_avaliacao`),
+  PRIMARY KEY (`idFicha_avaliacao`),
   KEY `fk_Ficha_avaliacao_Areas1` (`Area_idArea`),
   CONSTRAINT `fk_Ficha_avaliacao_Areas1` FOREIGN KEY (`Area_idArea`) REFERENCES `area` (`idArea`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -207,13 +207,13 @@ CREATE TABLE `ficha_avaliacao` (
 
 DROP TABLE IF EXISTS `hospital`;
 CREATE TABLE `hospital` (
-  `idHospital` int(11) NOT NULL auto_increment,
-  `nome_hospital` varchar(100) NOT NULL default '',
-  `endereco_hospital` varchar(200) NOT NULL default '',
-  `responsavel` varchar(100) default NULL,
+  `idHospital` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_hospital` varchar(100) NOT NULL DEFAULT '',
+  `endereco_hospital` varchar(200) NOT NULL DEFAULT '',
+  `responsavel` varchar(100) DEFAULT NULL,
   `marca` blob,
-  `telefone_hospital` varchar(45) default NULL,
-  PRIMARY KEY  (`idHospital`)
+  `telefone_hospital` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idHospital`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
@@ -233,11 +233,11 @@ INSERT INTO `hospital` (`idHospital`,`nome_hospital`,`endereco_hospital`,`respon
 
 DROP TABLE IF EXISTS `orientacao`;
 CREATE TABLE `orientacao` (
-  `idOrientacao` int(11) NOT NULL auto_increment,
+  `idOrientacao` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `imagem` blob NOT NULL,
   `descricao` text NOT NULL,
-  PRIMARY KEY  (`idOrientacao`)
+  PRIMARY KEY (`idOrientacao`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -276,23 +276,21 @@ CREATE TABLE `orientacao_x_parte_do_corpo` (
 
 DROP TABLE IF EXISTS `paciente`;
 CREATE TABLE `paciente` (
-  `idPaciente` int(11) NOT NULL auto_increment,
-  `nomePaciente` varchar(100) NOT NULL default '',
+  `idPaciente` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
   `endereco` varchar(200) NOT NULL,
   `telefone` varchar(45) NOT NULL,
   `rg` varchar(10) NOT NULL,
   `dtNasc` date NOT NULL,
   `cpf` varchar(11) NOT NULL,
-  PRIMARY KEY  (`idPaciente`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`idPaciente`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sepa`.`paciente`
 --
 
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
-INSERT INTO `paciente` (`idPaciente`,`nomePaciente`,`endereco`,`telefone`,`rg`,`dtNasc`,`cpf`) VALUES 
- (1,'luana','rua a','32411232','1128272625','2010-09-12','37876765612');
 /*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
 
 
@@ -302,9 +300,9 @@ INSERT INTO `paciente` (`idPaciente`,`nomePaciente`,`endereco`,`telefone`,`rg`,`
 
 DROP TABLE IF EXISTS `parte_do_corpo`;
 CREATE TABLE `parte_do_corpo` (
-  `idParte_do_corpo` int(11) NOT NULL auto_increment,
+  `idParte_do_corpo` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
-  PRIMARY KEY  (`idParte_do_corpo`)
+  PRIMARY KEY (`idParte_do_corpo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -321,9 +319,9 @@ CREATE TABLE `parte_do_corpo` (
 
 DROP TABLE IF EXISTS `profissao`;
 CREATE TABLE `profissao` (
-  `idProfissao` int(11) NOT NULL auto_increment,
-  `nome_profissao` varchar(45) NOT NULL default '',
-  PRIMARY KEY  (`idProfissao`)
+  `idProfissao` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_profissao` varchar(45) NOT NULL DEFAULT '',
+  PRIMARY KEY (`idProfissao`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
@@ -344,20 +342,20 @@ INSERT INTO `profissao` (`idProfissao`,`nome_profissao`) VALUES
 
 DROP TABLE IF EXISTS `profissional`;
 CREATE TABLE `profissional` (
-  `idProfissional` int(11) NOT NULL auto_increment,
-  `nomeProfissional` varchar(45) NOT NULL default '',
+  `idProfissional` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
   `usuario` varchar(45) NOT NULL,
   `senha` varchar(200) NOT NULL,
   `data_nascimento` date NOT NULL,
   `cpf` varchar(11) NOT NULL,
-  `enderecoProfissional` varchar(100) default NULL,
-  `telefoneProfissional` varchar(45) default NULL,
-  `numero_conselho` varchar(45) default NULL,
-  `email` varchar(100) default NULL,
-  `tipo_profissional` int(11) default NULL COMMENT '0 - administrador do sistema;\n1 - usuario do sistema;\n2 - profissional de saúde;\n\n',
+  `endereco` varchar(100) DEFAULT NULL,
+  `telefone` varchar(45) DEFAULT NULL,
+  `numero_conselho` varchar(45) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `tipo_profissional` int(11) DEFAULT NULL COMMENT '0 - administrador do sistema;\n1 - usuario do sistema;\n2 - profissional de saúde;\n\n',
   `Profissao_idProfissao` int(11) NOT NULL,
   `Hospital_idHospital` int(11) NOT NULL,
-  PRIMARY KEY  (`idProfissional`),
+  PRIMARY KEY (`idProfissional`),
   KEY `fk_Profissionais_Profissao1` (`Profissao_idProfissao`),
   KEY `fk_Profissional_Hospital1` (`Hospital_idHospital`),
   CONSTRAINT `fk_Profissionais_Profissao1` FOREIGN KEY (`Profissao_idProfissao`) REFERENCES `profissao` (`idProfissao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -369,7 +367,7 @@ CREATE TABLE `profissional` (
 --
 
 /*!40000 ALTER TABLE `profissional` DISABLE KEYS */;
-INSERT INTO `profissional` (`idProfissional`,`nomeProfissional`,`usuario`,`senha`,`data_nascimento`,`cpf`,`enderecoProfissional`,`telefoneProfissional`,`numero_conselho`,`email`,`tipo_profissional`,`Profissao_idProfissao`,`Hospital_idHospital`) VALUES 
+INSERT INTO `profissional` (`idProfissional`,`nome`,`usuario`,`senha`,`data_nascimento`,`cpf`,`endereco`,`telefone`,`numero_conselho`,`email`,`tipo_profissional`,`Profissao_idProfissao`,`Hospital_idHospital`) VALUES 
  (3,'Wellgton','wel','71b3b26aaa319e0cdf6fdb8429c112b0','1981-06-06','01539503585','rua a','12131213212','1321321','wellgton@gmail.com',2,1,1);
 /*!40000 ALTER TABLE `profissional` ENABLE KEYS */;
 
@@ -402,24 +400,21 @@ CREATE TABLE `profissional_x_area` (
 
 DROP TABLE IF EXISTS `prontuario`;
 CREATE TABLE `prontuario` (
-  `idProntuario` int(11) NOT NULL auto_increment,
+  `idProntuario` int(11) NOT NULL AUTO_INCREMENT,
   `Profissional_idProfissional` int(11) NOT NULL,
   `Paciente_idPaciente` int(11) NOT NULL,
-  PRIMARY KEY  (`idProntuario`),
+  PRIMARY KEY (`idProntuario`),
   KEY `fk_Prontuario_Profissionais1` (`Profissional_idProfissional`),
   KEY `fk_Prontuario_Pacientes1` (`Paciente_idPaciente`),
   CONSTRAINT `fk_Prontuario_Pacientes1` FOREIGN KEY (`Paciente_idPaciente`) REFERENCES `paciente` (`idPaciente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Prontuario_Profissionais1` FOREIGN KEY (`Profissional_idProfissional`) REFERENCES `profissional` (`idProfissional`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sepa`.`prontuario`
 --
 
 /*!40000 ALTER TABLE `prontuario` DISABLE KEYS */;
-INSERT INTO `prontuario` (`idProntuario`,`Profissional_idProfissional`,`Paciente_idPaciente`) VALUES 
- (1,3,1),
- (2,3,1);
 /*!40000 ALTER TABLE `prontuario` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
