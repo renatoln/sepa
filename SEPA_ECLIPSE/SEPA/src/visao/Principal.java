@@ -27,24 +27,60 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenuPessoa = new javax.swing.JMenu();
-        jMenuItemVisualizarPessoas = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jmiCadastro_Area = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuSetor = new javax.swing.JMenu();
         jMenuItemCadastrarSetor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenuPessoa.setText("Profissional");
+        jMenu1.setText("Cadastros");
 
-        jMenuItemVisualizarPessoas.setText("Cadastrar");
-        jMenuItemVisualizarPessoas.addActionListener(new java.awt.event.ActionListener() {
+        jmiCadastro_Area.setText("Área");
+        jmiCadastro_Area.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemVisualizarPessoasActionPerformed(evt);
+                jmiCadastro_AreaActionPerformed(evt);
             }
         });
-        jMenuPessoa.add(jMenuItemVisualizarPessoas);
+        jMenu1.add(jmiCadastro_Area);
 
-        jMenuBar1.add(jMenuPessoa);
+        jMenuItem4.setText("Atendimento");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem1.setText("Paciente");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Profissão");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Profissional");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
 
         jMenuSetor.setText("Setores");
 
@@ -74,20 +110,31 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItemVisualizarPessoasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVisualizarPessoasActionPerformed
-        // TODO add your handling code here:
-        
-      //    CadastraProfissional t = new CadastraProfissional();
-         //       t.setTitle("Sistema de controle de pessoas");
-               // t.atualizaTabela();
-          //      t.setVisible(true);
-    }//GEN-LAST:event_jMenuItemVisualizarPessoasActionPerformed
-
     private void jMenuItemCadastrarSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarSetorActionPerformed
  //new PrincipalSetor().setVisible(true);  
         // TODO add your handling code here:
   
     }//GEN-LAST:event_jMenuItemCadastrarSetorActionPerformed
+
+    private void jmiCadastro_AreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastro_AreaActionPerformed
+        new TelaArea().setVisible(true);
+    }//GEN-LAST:event_jmiCadastro_AreaActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new TelaProfissao().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+         new TelaPaciente().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        new TelaAtendimento().setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+         new TelaProfissional().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,10 +171,14 @@ public class Principal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemCadastrarSetor;
-    private javax.swing.JMenuItem jMenuItemVisualizarPessoas;
-    private javax.swing.JMenu jMenuPessoa;
     private javax.swing.JMenu jMenuSetor;
+    private javax.swing.JMenuItem jmiCadastro_Area;
     // End of variables declaration//GEN-END:variables
 }

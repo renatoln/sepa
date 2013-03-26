@@ -4,6 +4,8 @@
  */
 package modelo.negocio;
 
+import java.util.GregorianCalendar;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -52,6 +54,14 @@ public class Paciente {
         
     
     }
+
+    public Paciente(int idPaciente, String text, char c, String text0, String removerCaracterEspecial, String removerCaracterEspecial0, GregorianCalendar dataGregorianCalendar, String removerCaracterEspecial1) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    /*public Paciente(int idPaciente, String text, char c, String text0, String removerCaracterEspecial, String removerCaracterEspecial0, GregorianCalendar dataGregorianCalendar, String removerCaracterEspecial1) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }*/
      
     public String getNome() {
         return nome;
@@ -152,6 +162,10 @@ public class Paciente {
     public String toString(){
         return this.Id+" - "+this.nome;
 
+    }
+
+    public char getSexo() {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
 }

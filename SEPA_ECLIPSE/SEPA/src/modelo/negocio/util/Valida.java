@@ -245,6 +245,10 @@ public class Valida {
 
         return dtParaFormata;
       }
+
+    public boolean validarCPF(String text) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
        
  
 }

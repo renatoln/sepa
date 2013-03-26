@@ -412,7 +412,7 @@ public class FormPaciente extends javax.swing.JDialog {
         jtfEndereco.setText(p.getEndereco());
         jtfTelefone.setText(p.getTelefone());
         jtfRg.setText(p.getRg());
-        jtfDataNasc.setText(UtilidadesData.transformaData_GregorianCalendar_to_DDMMYYYY(p.getDataNascimento()));
+        //jtfDataNasc.setText(UtilidadesData.transformaData_GregorianCalendar_to_DDMMYYYY(p.getDataNasc()));
         jtfCpf.setText(p.getCpf());
 
 

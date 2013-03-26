@@ -121,7 +121,7 @@ public class TelaLogin extends javax.swing.JFrame {
             // TODO add your handling code here:
 
             if (controle.getLoginProfissional(jTextFieldUsuario.getText(), jPasswordFieldSenha.getText())) {
-                ExibirProfissional exibir = new ExibirProfissional();
+                TelaProfissional exibir = new TelaProfissional();
                 exibir.setVisible(true);
                 exibir.atualizaTabela();
             } else {

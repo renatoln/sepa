@@ -9,15 +9,20 @@ package modelo.negocio;
  * @author WELLITON
  */
 public class Profissao {
-     private int id_profissao;
-      private String nome;
+
+    private int id_profissao;
+    private String nome;
 
     public Profissao(int id_profissao, String nome) {
         this.id_profissao = id_profissao;
         this.nome = nome;
     }
-      
-      
+
+    public Profissao(String nome) {
+        this.nome = nome;
+
+
+    }
 
     public int getId_profissao() {
         return id_profissao;
@@ -37,8 +42,6 @@ public class Profissao {
 
     @Override
     public String toString() {
-        return  nome ;
+        return nome;
     }
-      
-    
 }

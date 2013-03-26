@@ -15,13 +15,13 @@ import javax.swing.JOptionPane;
  *
  * @author WELLITON
  */
-public class ExibirProfissional extends javax.swing.JFrame {
+public class TelaProfissional extends javax.swing.JFrame {
 Controle controle = new Controle();
  private JDialog cadastraProfissional;
     /**
-     * Creates new form ExibirProfissional
+     * Creates new form TelaProfissional
      */
-    public ExibirProfissional() {
+    public TelaProfissional() {
         initComponents();
     }
 
@@ -159,7 +159,7 @@ Controle controle = new Controle();
             try {
                 cadastraProfissional = new CadastraProfissional(this, true, id);
             } catch (ParseException ex) {
-                Logger.getLogger(ExibirProfissional.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaProfissional.class.getName()).log(Level.SEVERE, null, ex);
             }
             cadastraProfissional.setLocationRelativeTo(this);
             cadastraProfissional.setVisible(true);
@@ -208,22 +208,22 @@ Controle controle = new Controle();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ExibirProfissional.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaProfissional.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ExibirProfissional.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaProfissional.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ExibirProfissional.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaProfissional.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExibirProfissional.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaProfissional.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-             //   new ExibirProfissional().setVisible(true);
+             //   new TelaProfissional().setVisible(true);
                 
-                ExibirProfissional exibir = new ExibirProfissional();
+                TelaProfissional exibir = new TelaProfissional();
                 exibir.setVisible(true);
                 exibir.atualizaTabela();
             }
