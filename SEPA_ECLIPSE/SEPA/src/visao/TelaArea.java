@@ -41,7 +41,7 @@ public class TelaArea extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jtListaAreas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jtListaAreas.setFont(new java.awt.Font("Tahoma", 1, 11));
         jtListaAreas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -63,7 +63,7 @@ public class TelaArea extends javax.swing.JFrame {
             }
         });
 
-        btAtualizar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btAtualizar.setFont(new java.awt.Font("Tahoma", 1, 11));
         btAtualizar.setText("Atualizar");
         btAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +71,7 @@ public class TelaArea extends javax.swing.JFrame {
             }
         });
 
-        btExcluir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btExcluir.setFont(new java.awt.Font("Tahoma", 1, 11));
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +79,7 @@ public class TelaArea extends javax.swing.JFrame {
             }
         });
 
-        btSair.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btSair.setFont(new java.awt.Font("Tahoma", 1, 11));
         btSair.setText("Sair");
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,10 +92,12 @@ public class TelaArea extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addComponent(btInserir)
                         .addGap(18, 18, 18)
                         .addComponent(btAtualizar)
@@ -110,13 +112,13 @@ public class TelaArea extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btInserir)
                     .addComponent(btAtualizar)
                     .addComponent(btExcluir)
                     .addComponent(btSair))
-                .addGap(36, 36, 36))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
