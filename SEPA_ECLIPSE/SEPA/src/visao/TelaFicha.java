@@ -10,10 +10,15 @@
  */
 package visao;
 
+import controle.ControleAvaliacao;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import modelo.bd.BDMySql;
 import modelo.bd.FichaDao;
 import modelo.negocio.FichaAvaliacao;
 import javax.swing.JOptionPane;
+import modelo.bd.AreaDao;
+import modelo.negocio.Area;
 
 /**
  *
@@ -22,6 +27,8 @@ import javax.swing.JOptionPane;
 public class TelaFicha extends javax.swing.JDialog {
 
     FichaDao fichaDao = new FichaDao();
+    ControleAvaliacao controle = new ControleAvaliacao();
+    AreaDao areaDao = new AreaDao();
     BDMySql bd = BDMySql.getInstance();
     private int idFicha = -1;
 
@@ -40,6 +47,7 @@ public class TelaFicha extends javax.swing.JDialog {
 
     }
 
+   
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -54,17 +62,19 @@ public class TelaFicha extends javax.swing.JDialog {
         jLabelDescricao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDescricao = new javax.swing.JTextArea();
-        jButtonInserir = new javax.swing.JButton();
+        jbtInserir = new javax.swing.JButton();
         jButtonLimpar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jlArea = new javax.swing.JLabel();
+        jcArea = new javax.swing.JComboBox();
 
-        jLabelNome.setFont(new java.awt.Font("Monotype Corsiva", 1, 18));
+        jLabelNome.setFont(new java.awt.Font("Arial", 1, 18));
         jLabelNome.setText("Nome");
         jLabelNome.setName("jLabelNome"); // NOI18N
 
         jTextNome.setName("jTextNome"); // NOI18N
 
-        jLabelDescricao.setFont(new java.awt.Font("Monotype Corsiva", 1, 18));
+        jLabelDescricao.setFont(new java.awt.Font("Arial", 1, 18));
         jLabelDescricao.setText("Descrição");
         jLabelDescricao.setName("jLabelDescricao"); // NOI18N
 
@@ -75,14 +85,16 @@ public class TelaFicha extends javax.swing.JDialog {
         jTextAreaDescricao.setName("jTextAreaDescricao"); // NOI18N
         jScrollPane1.setViewportView(jTextAreaDescricao);
 
-        jButtonInserir.setText("Inserir");
-        jButtonInserir.setName("jButtonInserir"); // NOI18N
-        jButtonInserir.addActionListener(new java.awt.event.ActionListener() {
+        jbtInserir.setFont(new java.awt.Font("Tahoma", 1, 11));
+        jbtInserir.setText("Inserir");
+        jbtInserir.setName("jbtInserir"); // NOI18N
+        jbtInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonInserirActionPerformed(evt);
+                jbtInserirActionPerformed(evt);
             }
         });
 
+        jButtonLimpar.setFont(new java.awt.Font("Tahoma", 1, 11));
         jButtonLimpar.setText("Limpar");
         jButtonLimpar.setName("jButtonLimpar"); // NOI18N
         jButtonLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -91,36 +103,48 @@ public class TelaFicha extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Monotype Corsiva", 1, 24));
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24));
         jLabel1.setText("Ficha de avaliação");
         jLabel1.setName("jLabel1"); // NOI18N
+
+        jlArea.setFont(new java.awt.Font("Arial", 1, 18));
+        jlArea.setText("Área");
+        jlArea.setName("jlArea"); // NOI18N
+
+        jcArea.setModel(new DefaultComboBoxModel (areaDao.getAreas()));
+        jcArea.setName("jcArea"); // NOI18N
+        jcArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcAreaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelDescricao)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(jButtonInserir)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButtonLimpar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addComponent(jLabelNome)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelDescricao)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jlArea)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelNome)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextNome, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jbtInserir)
+                                .addGap(46, 46, 46)
+                                .addComponent(jButtonLimpar))
+                            .addComponent(jcArea, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(99, 99, 99)))
                 .addContainerGap(32, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(128, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(113, 113, 113))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,39 +159,57 @@ public class TelaFicha extends javax.swing.JDialog {
                 .addComponent(jLabelDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonLimpar)
-                    .addComponent(jButtonInserir))
-                .addContainerGap())
+                    .addComponent(jlArea)
+                    .addComponent(jcArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtInserir)
+                    .addComponent(jButtonLimpar))
+                .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirActionPerformed
-        if (verificarCampos()) {
+    private void jbtInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtInserirActionPerformed
+       if (verificarCampos()) {
 
-            FichaAvaliacao ficha = new FichaAvaliacao(idFicha,
-                    jTextNome.getText(),
-                    jTextAreaDescricao.getText());
-
+            FichaAvaliacao f = new FichaAvaliacao(
+                    idFicha,jTextNome.getText(),
+                    jTextAreaDescricao.getText(),
+                    (Area) jcArea.getSelectedItem());
+                    
             String msn;
+            
             if (idFicha == -1) {
-                fichaDao.cadastraFicha(ficha);
+                fichaDao.cadastraFicha(f);
                 msn = "Ficha cadastrado com sucesso";
             } else {
-                fichaDao.atualizaFicha(ficha);
+                fichaDao.atualizaFicha(f);
                 msn = "Ficha atualizado com sucesso";
             }
             limparTela();
             fechaJanela(msn);
         }
-    }//GEN-LAST:event_jButtonInserirActionPerformed
+    }//GEN-LAST:event_jbtInserirActionPerformed
 
+    private void carregaComboFicha() {
+        jcArea.removeAll();
+        Vector listaAreas = areaDao.getAreas();
+        for (int i = 0; i < listaAreas.size(); i++) {
+            jcArea.addItem(listaAreas.get(i));
+        }
+    }
     private void jButtonLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparActionPerformed
         limparTela();
     }//GEN-LAST:event_jButtonLimparActionPerformed
+
+    private void jcAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcAreaActionPerformed
+        carregaComboFicha();
+                // TODO add your handling code here:
+    }//GEN-LAST:event_jcAreaActionPerformed
 
     private void limparTela() {
         jTextNome.setText("");
@@ -197,13 +239,14 @@ public class TelaFicha extends javax.swing.JDialog {
     }
 
     private void preencheTela(int id) {
+
         FichaAvaliacao f = fichaDao.getFicha(id);
         jTextNome.setText(f.getNome());
         jTextAreaDescricao.setText(f.getDescricao());
-        jButtonInserir.setText("Atualizar");
-
+        //jbtInserir.setText("Atualizar");
 
     }
+
 
     private void fechaJanela(String msn) {
         this.setVisible(false);
@@ -211,7 +254,6 @@ public class TelaFicha extends javax.swing.JDialog {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonInserir;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelDescricao;
@@ -219,5 +261,8 @@ public class TelaFicha extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaDescricao;
     private javax.swing.JTextField jTextNome;
+    private javax.swing.JButton jbtInserir;
+    private javax.swing.JComboBox jcArea;
+    private javax.swing.JLabel jlArea;
     // End of variables declaration//GEN-END:variables
 }

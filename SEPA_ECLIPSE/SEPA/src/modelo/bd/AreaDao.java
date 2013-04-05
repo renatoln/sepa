@@ -60,7 +60,7 @@ public class AreaDao {
 	
         
         public  Vector<Area> getAreas(){
-		ResultSet rs = bdMySql.executarBuscaSQL("Select id,nome, descricao  from area ");
+		ResultSet rs = bdMySql.executarBuscaSQL("Select idarea,nome, descricao  from area ");
 		Area a = null;
                 Vector<Area> areas = new Vector<Area>();
 		try{

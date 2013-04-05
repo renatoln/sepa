@@ -23,7 +23,7 @@ public class TelaFichaPrincipal extends javax.swing.JFrame {
 
     public TelaFichaPrincipal() {
         initComponents();
-        atualizaTabela();
+        //atualizaTabela();
     }
 
     /** This method is called from within the constructor to
@@ -45,18 +45,18 @@ public class TelaFichaPrincipal extends javax.swing.JFrame {
 
         jtListaAvaliacao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Descrição"
+                "ID", "Nome", "Descrição", "Área"
             }
         ));
         jScrollPane1.setViewportView(jtListaAvaliacao);
@@ -188,7 +188,7 @@ public class TelaFichaPrincipal extends javax.swing.JFrame {
 
             public void run() {
                 TelaFichaPrincipal t = new TelaFichaPrincipal();
-                t.setTitle("Sistema de Avaliação de pacientes");
+                t.setTitle("Sistema de Avaliação do Pacientes");
                 t.atualizaTabela();
                 t.setVisible(true);
             }
@@ -196,15 +196,17 @@ public class TelaFichaPrincipal extends javax.swing.JFrame {
     }
 
     public void atualizaTabela() {
-        Object[][] lista = fichaDao.lista();
+        Object[][] lista = fichaDao.listaFicha();
         jtListaAvaliacao.setModel(new javax.swing.table.DefaultTableModel(
-                lista, new String[]{"id", "Nome","Descrição"}) {
+                lista, new String[]{"ID", "Nome","Área","Descrição"}) {
         });
         jtListaAvaliacao.getColumnModel().getColumn(0).setPreferredWidth(50);
         jtListaAvaliacao.getColumnModel().getColumn(0).setResizable(true);
         jtListaAvaliacao.getColumnModel().getColumn(1).setPreferredWidth(150);
         jtListaAvaliacao.getColumnModel().getColumn(1).setResizable(true);
         jtListaAvaliacao.getColumnModel().getColumn(1).setPreferredWidth(150);
+        jtListaAvaliacao.getColumnModel().getColumn(1).setResizable(true);
+        jtListaAvaliacao.getColumnModel().getColumn(1).setPreferredWidth(100);
         jtListaAvaliacao.getColumnModel().getColumn(1).setResizable(true);
 
 

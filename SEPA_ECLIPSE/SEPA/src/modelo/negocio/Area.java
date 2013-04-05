@@ -55,7 +55,9 @@ public class Area {
         this.nome = nome;
     }
 	
-       
+     public String toString(){
+		return this.nome;
+     }
 	
 	
 
