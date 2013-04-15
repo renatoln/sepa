@@ -1,40 +1,47 @@
 /*
- * FormPessoa.java
  *
  * Created on 21 de Abril de 2010, 16:59
  */
-
 package visao;
 
-
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import modelo.bd.AreaDao;
 import modelo.bd.BDMySql;
 import modelo.bd.DoencaDao;
+import modelo.negocio.Area;
 import modelo.negocio.Doenca;
 
 
 /**
  *
- * @author  Renato Novais
+ * @author  usuario
  */
 public class FormDoenca extends javax.swing.JDialog {
 
-    BDMySql bd  = BDMySql.getInstance();
+    BDMySql bd = BDMySql.getInstance();
     DoencaDao dd = new DoencaDao();
-  
-    private int idDoenca = -1;
+    AreaDao areaDao =  new AreaDao();
+    int idDoenca = -1;
+
     /** Creates new form FormPessoa */
-    public FormDoenca (java.awt.Frame parent, boolean modal) {
+    public FormDoenca(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-           }
+        
+    }
+    
 
     public FormDoenca(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
-        initComponents();      
+        initComponents();
         preencheTela(id);
         idDoenca = id;
 
+    }
+    public void inicializaCampos(){
+        jbInserir.setText("Inserir");
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -51,19 +58,27 @@ public class FormDoenca extends javax.swing.JDialog {
         jcbArea = new javax.swing.JComboBox();
         jbInserir = new javax.swing.JButton();
         jbLimpar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel1.setText("Nome");
         jLabel1.setName("jLabel1"); // NOI18N
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel4.setText("Area");
         jLabel4.setName("jLabel4"); // NOI18N
 
         jtfNome.setName("jtfNome"); // NOI18N
 
-        jcbArea.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ortopedia", "Oncologia", "Fisioterapia", "Pediatra" }));
+        jcbArea.setModel(new DefaultComboBoxModel (areaDao.getAreas()));
         jcbArea.setName("jcbArea"); // NOI18N
+        jcbArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbAreaActionPerformed(evt);
+            }
+        });
 
         jbInserir.setText("Inserir");
         jbInserir.setName("jbInserir"); // NOI18N
@@ -81,44 +96,53 @@ public class FormDoenca extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel2.setText("Cadastro Doenca");
+        jLabel2.setName("jLabel2"); // NOI18N
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(15, 15, 15)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel1)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jLabel4))
+                .add(19, 19, 19)
+                .add(jLabel4)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
+                        .add(22, 22, 22)
                         .add(jbInserir)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jbLimpar)
-                        .add(184, 184, 184))
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jcbArea, 0, 228, Short.MAX_VALUE)
-                            .add(jtfNome, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
-                        .add(92, 92, 92))))
+                        .add(32, 32, 32)
+                        .add(jbLimpar))
+                    .add(jcbArea, 0, 310, Short.MAX_VALUE))
+                .addContainerGap())
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 238, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jtfNome, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(19, 19, 19)
+                .addContainerGap()
+                .add(jLabel2)
+                .add(33, 33, 33)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(jtfNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(83, 83, 83)
+                    .add(jtfNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(47, 47, 47)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel4)
-                    .add(jcbArea, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jcbArea, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(50, 50, 50)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jbInserir)
-                    .add(jbLimpar))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .add(jbLimpar)
+                    .add(jbInserir))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,96 +150,104 @@ public class FormDoenca extends javax.swing.JDialog {
 
 private void jbLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparActionPerformed
     limparTela();
+
 }//GEN-LAST:event_jbLimparActionPerformed
 
 private void jbInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInserirActionPerformed
-  if (verificarCampos()){
-       
-      Doenca d = new Doenca(idDoenca,
-                        jtfNome.getText(),                       
-                        (String)jcbArea.getSelectedItem());
+    if (verificarCampos()) {
+
+        Doenca d = new Doenca(idDoenca,
+                jtfNome.getText(),
+                (Area) jcbArea.getSelectedItem());
         String msn;
-        if (idDoenca == -1){
-                dd.cadastraDoenca(d);
-                        msn = "Cadastro realizado com sucesso";
-        }
-        else {
-                dd.atualizaDoenca(d);
-                msn = "Atualizado com sucesso";
+        if (idDoenca == -1) {
+            dd.cadastraDoenca(d);
+            msn = "Cadastro realizado com sucesso";
+        } else {
+            dd.atualizaDoenca(d);
+            msn = "Atualizado com sucesso";
         }
         limparTela();
         fechaJanela(msn);
     }
+    idDoenca = -1;
 }//GEN-LAST:event_jbInserirActionPerformed
-     private void limparTela(){
+
+private void jcbAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAreaActionPerformed
+   carregaComboArea();
+
+}//GEN-LAST:event_jcbAreaActionPerformed
+
+    private void carregaComboArea() {
+
+        jcbArea.removeAll();
+        Vector listaAreas = areaDao.getAreas();
+        for (int i = 0; i < listaAreas.size(); i++) {
+            jcbArea.addItem(listaAreas.get(i));
+        }
+    }
+
+
+    private void limparTela() {
         jtfNome.setText("");
         //jrbNone.setSelected(true);      
         jcbArea.setSelectedIndex(0);
         jtfNome.grabFocus();//coloca o focus no campo
     }
 
-    private boolean verificarCampos(){
+    private boolean verificarCampos() {
         String sErro = "";
         boolean erro = false;
         if (jtfNome.getText().equals("")) {
-                sErro = "O nome não pode ficar em branco!";
-                jtfNome.grabFocus();
-                erro = true;
+            sErro = "O nome não pode ficar em branco!";
+            jtfNome.grabFocus();
+            erro = true;
         }
-      
-        if (erro){
-                JOptionPane.showMessageDialog(null,sErro,"Erro",JOptionPane.ERROR_MESSAGE);
-                return false;
+
+        if (erro) {
+            JOptionPane.showMessageDialog(null, sErro, "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
         return true;
 
     }
-    private void preencheTela(int id){
+
+    private void preencheTela(int id) {
         Doenca d = dd.getDoenca(id);
         jtfNome.setText(d.getNome());
 
-        
-        //lista formação
-       int tam = jcbArea.getModel().getSize();
-        for (int i = 0; i < tam; i++)
-                if (jcbArea.getModel().getElementAt(i).equals(d.getArea())){
-                        jcbArea.setSelectedIndex(i);
-                        break;
-                }
-        
-        
-        jbInserir.setText("Atualizar");
+         jbInserir.setText("Atualizar");
     }
-    private void fechaJanela(String msn){
-            this.setVisible(false);
-            JOptionPane.showMessageDialog(null,msn,"Informação",JOptionPane.INFORMATION_MESSAGE);
-            
+
+    private void fechaJanela(String msn) {
+        this.setVisible(false);
+        JOptionPane.showMessageDialog(null, msn, "Informação", JOptionPane.INFORMATION_MESSAGE);
+
     }
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     /*public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FormPessoa dialog = new FormPessoa(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                
-                
-            }
-        });
-    }*/
+    java.awt.EventQueue.invokeLater(new Runnable() {
+    public void run() {
+    FormPessoa dialog = new FormPessoa(new javax.swing.JFrame(), true);
+    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+    public void windowClosing(java.awt.event.WindowEvent e) {
+    System.exit(0);
+    }
+    });
 
+
+    }
+    });
+    }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jbInserir;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JComboBox jcbArea;
     private javax.swing.JTextField jtfNome;
     // End of variables declaration//GEN-END:variables
-
 }

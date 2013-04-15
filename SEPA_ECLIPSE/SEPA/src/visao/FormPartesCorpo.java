@@ -13,10 +13,8 @@ import modelo.bd.PartesCorpoDao;
 import modelo.negocio.PartesCorpo;
 
 
-
 /**
  *
- * @author  Renato Novais
  */
 public class FormPartesCorpo extends javax.swing.JDialog {
 
@@ -24,6 +22,7 @@ public class FormPartesCorpo extends javax.swing.JDialog {
     BDMySql bd  = BDMySql.getInstance();
     private int idPartesCorpo = -1;
     /** Creates new form FormPessoa */
+     
     public FormPartesCorpo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -36,6 +35,10 @@ public class FormPartesCorpo extends javax.swing.JDialog {
         preencheTela(id);
         idPartesCorpo = id;
         
+    }
+
+    public void inicializaCampos(){
+        jbInserir.setText("Inserir");
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -50,9 +53,11 @@ public class FormPartesCorpo extends javax.swing.JDialog {
         jtfNome = new javax.swing.JTextField();
         jbInserir = new javax.swing.JButton();
         jbLimpar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel1.setText("Nome");
         jLabel1.setName("jLabel1"); // NOI18N
 
@@ -74,36 +79,47 @@ public class FormPartesCorpo extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24));
+        jLabel2.setText("Cadastra Partes Corpo");
+        jLabel2.setName("jLabel2"); // NOI18N
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(61, 61, 61)
+                .add(26, 26, 26)
                 .add(jLabel1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(jbInserir)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jbLimpar)
-                        .add(138, 138, 138))
+                        .add(8, 8, 8)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel2)
+                            .add(layout.createSequentialGroup()
+                                .add(52, 52, 52)
+                                .add(jbInserir)
+                                .add(40, 40, 40)
+                                .add(jbLimpar)))
+                        .add(100, 100, 100))
                     .add(layout.createSequentialGroup()
-                        .add(jtfNome, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                        .add(46, 46, 46))))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jtfNome, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(19, 19, 19)
+                .add(35, 35, 35)
+                .add(jLabel2)
+                .add(46, 46, 46)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(jtfNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(161, 161, 161)
+                    .add(jtfNome, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(82, 82, 82)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jbInserir)
                     .add(jbLimpar))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,8 +132,7 @@ private void jbLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jbInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInserirActionPerformed
   if (verificarCampos()){
        
-     PartesCorpo p = new PartesCorpo(idPartesCorpo,
-                        jtfNome.getText());
+     PartesCorpo p = new PartesCorpo(idPartesCorpo, jtfNome.getText());
                        
         String msn;
         if (idPartesCorpo == -1){
@@ -128,8 +143,10 @@ private void jbInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 pc.atualizaPartesCorpo(p);
                 msn = "Atualizado com sucesso";
         }
+        limparTela();
         fechaJanela(msn);
     }
+    idPartesCorpo = -1;
 }//GEN-LAST:event_jbInserirActionPerformed
      private void limparTela(){
         jtfNome.setText("");
@@ -179,6 +196,7 @@ private void jbInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jbInserir;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JTextField jtfNome;

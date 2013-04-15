@@ -18,7 +18,7 @@ import modelo.negocio.PartesCorpo;
 public class PartesCorpoDao {
     BDMySql bdMySql= BDMySql.getInstance();
     public String[][] listaPartesCorpo(){
-		ResultSet rs = bdMySql.executarBuscaSQL("Select id,  nome from partescorpo");
+		ResultSet rs = bdMySql.executarBuscaSQL("Select idParte_do_corpo, nome from parte_do_corpo");
 		String lista[][] = new String[bdMySql.getRowCount(rs)][];
 		try{
 			int i = 0;
@@ -33,7 +33,7 @@ public class PartesCorpoDao {
 	}
 
 	public PartesCorpo getPartesCorpo(int id){
-		ResultSet rs = bdMySql.executarBuscaSQL("Select nome from partescorpo where id = "+ id);
+		ResultSet rs = bdMySql.executarBuscaSQL("Select nome from parte_do_corpo where idParte_do_corpo = "+ id);
 		PartesCorpo p = null;
 		try{
 			if (rs.next()){
@@ -46,20 +46,19 @@ public class PartesCorpoDao {
 	}
 
 	public void cadastraPartesCorpo(PartesCorpo p){
-		String sql = "insert into partescorpo(nome) values ('"+
+		String sql = "insert into parte_do_corpo(nome) values ('"+
 					 p.getNome()+"')";
 
                 bdMySql.executarSQL(sql);
 	}
 	public void atualizaPartesCorpo(PartesCorpo p){
-		String sql = "update partescorpo set nome = '"+p.getNome()+"',"+
-		                              " where id = "+ p.getId();
+		String sql =   "update parte_do_corpo set nome = '"+ p.getNome()+"' "+ " where idParte_do_corpo = "+ p.getId();
 
 		bdMySql.executarSQL(sql);
 	}
 
         public  Vector<PartesCorpo> getPartesCorpo(){
-		ResultSet rs = bdMySql.executarBuscaSQL("Select id ,nome  from partescorpo ");
+		ResultSet rs = bdMySql.executarBuscaSQL("Select idPartte_do_corpo ,nome  from parte_do_corpo ");
 		PartesCorpo p = null;
                 Vector<PartesCorpo> partescorpo = new Vector<PartesCorpo>();
 		try{
@@ -75,7 +74,7 @@ public class PartesCorpoDao {
 
 
 	public void deletaPartesCorpo(int id){
-		String sql = "delete from partescorpo where id = "+ id;
+		String sql = "delete from parte_do_corpo where idParte_do_corpo = "+ id;
 
 		bdMySql.executarSQL(sql);
 	}

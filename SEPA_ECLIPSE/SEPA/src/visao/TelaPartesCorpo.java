@@ -10,17 +10,15 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.bd.BDMySql;
 import modelo.bd.PartesCorpoDao;
-
-
 /**
  *
- * @author  Renato Novais
+ * @author  usuario
  */
 public class TelaPartesCorpo extends javax.swing.JFrame {
 
     PartesCorpoDao pc = new PartesCorpoDao();
     BDMySql bd  = BDMySql.getInstance();
-    private JDialog formPartesCorpo;
+    private FormPartesCorpo formPartesCorpo;
     
     
     /** Creates new form TelaPrincipal */
@@ -208,7 +206,7 @@ private void jbAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
            formPartesCorpo = new FormPartesCorpo(this, true, id);
            formPartesCorpo.setLocationRelativeTo(this);
            formPartesCorpo.setVisible(true);
-            atualizaTabela();
+           atualizaTabela();
     }
 }//GEN-LAST:event_jbAtualizarActionPerformed
 
@@ -242,7 +240,11 @@ private void jbInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         formPartesCorpo = new FormPartesCorpo(this, true);
         formPartesCorpo.setLocationRelativeTo(this);
     }
+
+    formPartesCorpo.inicializaCampos();
     formPartesCorpo.setVisible(true);
+    
+    
     atualizaTabela();
 }//GEN-LAST:event_jbInserirActionPerformed
 
@@ -252,7 +254,7 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
     JOptionPane.showMessageDialog(null, "Aplicação Java \n"
-                                + "desenvolvida por\n" + "Alunos L'icenciatura em COmputação\n"
+                                + "desenvolvida por\n" + "Alunos Licenciatura em Computação\n"
                                 + "IFBA Campus Santo Amaro 2012.2", "Sobre",
                                 JOptionPane.INFORMATION_MESSAGE);
 }//GEN-LAST:event_jMenuItem2ActionPerformed

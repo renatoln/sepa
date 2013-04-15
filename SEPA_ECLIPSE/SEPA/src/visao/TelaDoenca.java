@@ -5,7 +5,6 @@
  */
 
 package visao;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import modelo.bd.BDMySql;
 import modelo.bd.DoencaDao;
@@ -13,14 +12,14 @@ import modelo.bd.DoencaDao;
 
 /**
  *
- * @author  Renato Novais
+ 
  */
 public class TelaDoenca extends javax.swing.JFrame {
 
     
     BDMySql bd  = BDMySql.getInstance();
     DoencaDao dd = new DoencaDao();
-    private JDialog formDoenca;
+    private FormDoenca formDoenca;
     
     
     /** Creates new form TelaPrincipal */
@@ -132,7 +131,7 @@ public class TelaDoenca extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Area"
+                "ID", "Area", "Nome"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -207,6 +206,7 @@ public class TelaDoenca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void jbAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAtualizarActionPerformed
+
     int i = jtListaDoenca.getSelectedRow();
     if (i == -1) JOptionPane.showMessageDialog(null,"Selecione uma linha da tabela","Erro",JOptionPane.ERROR_MESSAGE);
     else {
@@ -233,7 +233,7 @@ private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     dd.deletaDoenca(id);
                     JOptionPane.showMessageDialog(null,"Registro excluído com sucesso","Informação",JOptionPane.INFORMATION_MESSAGE);
                     atualizaTabela();
-
+                    
             }
     }
 }//GEN-LAST:event_jbExcluirActionPerformed
@@ -248,8 +248,12 @@ private void jbInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         //JFrame mainFrame = TelaPrincipal.getApplication().getMainFrame();
         formDoenca = new FormDoenca(this, true);
         formDoenca.setLocationRelativeTo(this);
+
     }
-     formDoenca.setVisible(true);
+    formDoenca.inicializaCampos();
+    formDoenca.setVisible(true);
+    
+
     atualizaTabela();
 }//GEN-LAST:event_jbInserirActionPerformed
 
@@ -269,6 +273,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 TelaDoenca t = new TelaDoenca();
                 t.setTitle("Sistema de controle de Clínica");
@@ -282,14 +287,14 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     public void atualizaTabela(){
 		Object[][] lista = dd.listaDoenca();
 		jtListaDoenca.setModel(new javax.swing.table.DefaultTableModel(
-				lista, new String[] { "id", "Nome", "Area"}) {
+				lista, new String[] { "ID", "Nome", "Area"}) {
 			
 		});
-		jtListaDoenca.getColumnModel().getColumn(0).setPreferredWidth(50);
+		jtListaDoenca.getColumnModel().getColumn(0).setPreferredWidth(150);
 		jtListaDoenca.getColumnModel().getColumn(0).setResizable(true);
 		jtListaDoenca.getColumnModel().getColumn(1).setPreferredWidth(150);
 		jtListaDoenca.getColumnModel().getColumn(1).setResizable(true);
-		jtListaDoenca.getColumnModel().getColumn(2).setPreferredWidth(60);
+		jtListaDoenca.getColumnModel().getColumn(2).setPreferredWidth(150);
 		jtListaDoenca.getColumnModel().getColumn(2).setResizable(true);
 		
 	}

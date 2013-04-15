@@ -5,23 +5,25 @@
 
 package modelo.negocio;
 
+
+
 /**
  *
  * @author usuario
  */
 public class Doenca {
     private String nome;
-    private String area;
+    private Area area;
     private int id;
 
 
-    public Doenca (int id, String nome, String area){
+    public Doenca (int id, String nome, Area area){
         this.id= id;
         this.nome= nome;
         this.area= area;
     }
 
-  public Doenca( String area, String nome){
+  public Doenca( Area area, String nome){
                 this.area= area;
 		this.nome = nome;	
 
@@ -45,14 +47,14 @@ public class Doenca {
     /**
      * @return the area
      */
-    public String getArea() {
+    public Area getArea() {
         return area;
     }
 
     /**
      * @param area the area to set
      */
-    public void setArea(String area) {
+    public void setArea(Area area) {
         this.area = area;
     }
 
@@ -72,9 +74,7 @@ public class Doenca {
 
 
     public String toString(){
-		return "Nome: "+this.nome+"\n"+
-				"Area: "+this.area+"\n";
-
+		return this.nome;
     }
 }
 
